@@ -117,32 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buscar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\buscar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="actualizar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\actualizar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="agregar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\agregar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Trash_01__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Trash-01 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CerrarSesion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CerrarSesion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cerrar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cerrar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lupa1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lupa1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nota" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\nota.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Doctores" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Doctores.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAP
+        DwAADw8BYb+PagAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKVSURBVEhLrZXt
+        TlpBEIaRGI1yDUrb2P5o06+bQcEEIh+JXlor/tYq8A+9CwWUG4Bj4mHPR99ns2uOSANNO8mbnLMz8+7s
+        zOxszskb4YeQCD/d/6pSFPBJhbbwTrDyVjjf3NyMd3Z2oo2NDch/CV9RLpEvwgU+8jVw6P9csOTtra2t
+        9Pj4OOx0Oo9HR0fJ2toau3eEbxj8QdBdYVuv16NutxuI42l7exvfMwzS3d3d+Pr6OkiSJL6/vzcHBwdR
+        Pp/H4EpYFPlnwZKWSiWDj3yjm5uboFgsEjW+uXahUEibzWY8Go1mMkgeHh5m5XLZuMgvhSw5x79EpwAg
+        DfGRr2k0Gglc0pNrm4+L9fX1FLLhcJglj6TDkJx/Ej5iyxo6bLAdDAbWFg6np25WnvOFgY9cm5j9/X2O
+        RkF7QleItRah8zb4uNOhf1UXSy5Ych+5osHRsO50hjV0BHB4eOhPhe93YaGQS3KaEqnyZ8nv7u5Mq9UK
+        Ad+soVOOfaHm67BQPHlIdJ4oCAID+GatUqlwitDZLiX18kGwkddqtdlkMolSJ3yzhs7ZYLuy7Al0Qlqt
+        VpcRvxdWEo5Fy4TKs7m9vbXHn06nEfCpUJogXzkVtvkFWzyaHiI6RIWb6RLNtJEl/5vi0W6W1LcbR6el
+        XHQQeN3zhipitt1e9TC7PV+QTJ/auSGdvyCACxJ7crexvyAvBhez95zrCAnXE4fxeJyNhpNwpYE/VYwN
+        tvjgm7nSdp6fuiFkr6cjDelTF8X8hOPbDiGRG80LO4Tw1RCKs0PIjs1+v/8ovR+bZsnYpMg2dXSOK3I8
+        PzbP3KB/6vV6AUN7Ub4WCLoOtjwODPqTk5MXg56x6Z8m8w9P02z+aUL4OBXY7T88prncb17EbwM8reoX
+        AAAAAElFTkSuQmCC
+</value>
   </data>
 </root>

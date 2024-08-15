@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ConsultasMedicas
 {
-    public partial class Form1 : Form
+    public partial class FormMenu : Form
     {
-        public Form1()
+        public FormMenu()
         {
             InitializeComponent();
         }

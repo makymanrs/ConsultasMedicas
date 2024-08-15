@@ -24,7 +24,7 @@ namespace ConsultasMedicas.Mysql
             try
             {
                 conexionBD.Open();
-                MessageBox.Show("Conexión establecida correctamente.");
+               // MessageBox.Show("Conexión establecida correctamente.");
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {

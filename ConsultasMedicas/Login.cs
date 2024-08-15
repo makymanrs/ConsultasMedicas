@@ -71,6 +71,24 @@ namespace ConsultasMedicas
             objetoConexion.establecerConexion();
         }
 
-        
+        private void label3_Click(object sender, EventArgs e)
+        {
+            this.Hide(); // Oculta el formulario de login
+            RegistroLogin form2 = new RegistroLogin();
+            form2.ShowDialog(); // Muestra el formulario de registro como un diálogo modal
+            //this.Show();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                textBox2.PasswordChar = '\0';
+            }
+            else
+            {
+                textBox2.PasswordChar = '*';
+            }
+        }
     }
 }

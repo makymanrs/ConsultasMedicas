@@ -44,10 +44,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1085, 656);
             this.Controls.Add(this.label1);
             this.Name = "FormMenu";
-            this.Text = "FormMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Consultas Medicas";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMenu_FormClosed);
+            this.Load += new System.EventHandler(this.FormMenu_Load);
+            this.Resize += new System.EventHandler(this.FormMenu_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -55,5 +55,32 @@ namespace ConsultasMedicas
             button1.BackColor = Color.FromArgb(33, 33, 33);
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Mysql.Cusuario objetoregistro = new Mysql.Cusuario();
+            objetoregistro.RegistrarUsuario(textBox1, textBox2, textBox3);
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            this.Hide(); // Oculta el formulario de login
+            Login form1 = new Login();
+            form1.ShowDialog(); // Muestra el formulario 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                textBox2.PasswordChar = '\0';
+                textBox3.PasswordChar = '\0';
+            }
+            else
+            {
+                textBox2.PasswordChar = '*';
+                textBox3.PasswordChar = '*';
+            }
+        }
     }
 }

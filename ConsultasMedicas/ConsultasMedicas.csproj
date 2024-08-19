@@ -52,13 +52,34 @@
     <Compile Include="FormMenu.Designer.cs">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormEnfermedades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEnfermedades.Designer.cs">
+      <DependentUpon>FormEnfermedades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPaciente.Designer.cs">
+      <DependentUpon>FormPaciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormTratamiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormTratamiento.Designer.cs">
+      <DependentUpon>FormTratamiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mysql\Cenfermedad.cs" />
     <Compile Include="Mysql\Conexion.cs" />
+    <Compile Include="Mysql\Cpacientes.cs" />
+    <Compile Include="Mysql\Ctratamiento.cs" />
     <Compile Include="Mysql\Cusuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +91,15 @@
     </Compile>
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormEnfermedades.resx">
+      <DependentUpon>FormEnfermedades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPaciente.resx">
+      <DependentUpon>FormPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormTratamiento.resx">
+      <DependentUpon>FormTratamiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -134,6 +164,18 @@
     <PackageReference Include="MySql.Data">
       <Version>9.0.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pacienteColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\propagar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\historial-medico.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

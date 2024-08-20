@@ -37,7 +37,13 @@ namespace ConsultasMedicas
             label2.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
             label3.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
             label4.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
-
+            button1.BackColor = Color.FromArgb(35, 40, 45);
+            button1.Font = new Font(Font.FontFamily, 12);
+            button1.ForeColor = Color.White;
+            labelhr.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
+            labelhr.ForeColor = Color.DarkBlue;
+            labelfch.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
+            label8.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
         }
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -142,6 +148,55 @@ namespace ConsultasMedicas
                 tabPage4.Controls.Add(formulario4);
                 formulario4.Show();
             }
+        }
+        //cambiar de forms con los picturebox
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            ChangeTab(1);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            ChangeTab(2);
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            ChangeTab(3);
+        }
+        //cambiar de forms con los labels
+        private void label2_Click(object sender, EventArgs e)
+        {
+            ChangeTab(1);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            ChangeTab(2);
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            ChangeTab(3);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login login = new Login();
+            login.Show();
+            login.FormClosed += (s, args) =>
+            {
+                this.Close();
+                this.Dispose();
+                this.Dispose();
+            };
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            labelhr.Text = DateTime.Now.ToString("h:mm:ss");
+            labelfch.Text = DateTime.Now.ToLongDateString();
         }
     }
 }

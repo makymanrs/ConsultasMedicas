@@ -52,11 +52,23 @@
     <Compile Include="FormMenu.Designer.cs">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormEditarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEditarPaciente.Designer.cs">
+      <DependentUpon>FormEditarPaciente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormEnfermedades.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormEnfermedades.Designer.cs">
       <DependentUpon>FormEnfermedades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormInsertarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormInsertarPaciente.Designer.cs">
+      <DependentUpon>FormInsertarPaciente.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormPaciente.cs">
       <SubType>Form</SubType>
@@ -92,8 +104,14 @@
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormEditarPaciente.resx">
+      <DependentUpon>FormEditarPaciente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEnfermedades.resx">
       <DependentUpon>FormEnfermedades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormInsertarPaciente.resx">
+      <DependentUpon>FormInsertarPaciente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormPaciente.resx">
       <DependentUpon>FormPaciente.cs</DependentUpon>
@@ -176,6 +194,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\historial-medico.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\guardar-datos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\editar-informacion.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

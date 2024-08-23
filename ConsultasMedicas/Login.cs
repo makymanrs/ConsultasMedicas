@@ -90,5 +90,23 @@ namespace ConsultasMedicas
                 textBox2.PasswordChar = '*';
             }
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true; 
+                textBox2.Focus(); 
+            }
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                button1.Focus();
+            }
+        }
     }
 }

@@ -52,6 +52,18 @@
     <Compile Include="FormMenu.Designer.cs">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormDetalleEnfermedades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDetalleEnfermedades.Designer.cs">
+      <DependentUpon>FormDetalleEnfermedades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormEditarEnfermedad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEditarEnfermedad.Designer.cs">
+      <DependentUpon>FormEditarEnfermedad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormEditarPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +75,12 @@
     </Compile>
     <Compile Include="Forms\FormEnfermedades.Designer.cs">
       <DependentUpon>FormEnfermedades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormInsertarEnfermedad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormInsertarEnfermedad.Designer.cs">
+      <DependentUpon>FormInsertarEnfermedad.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormInsertarPaciente.cs">
       <SubType>Form</SubType>
@@ -104,11 +122,17 @@
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormEditarEnfermedad.resx">
+      <DependentUpon>FormEditarEnfermedad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEditarPaciente.resx">
       <DependentUpon>FormEditarPaciente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEnfermedades.resx">
       <DependentUpon>FormEnfermedades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormInsertarEnfermedad.resx">
+      <DependentUpon>FormInsertarEnfermedad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormInsertarPaciente.resx">
       <DependentUpon>FormInsertarPaciente.cs</DependentUpon>

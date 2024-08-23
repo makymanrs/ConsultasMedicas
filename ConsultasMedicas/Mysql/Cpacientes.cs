@@ -289,9 +289,9 @@ namespace ConsultasMedicas.Mysql
                 {
                     textboxdetalleoId.Text = tablaDetalle.CurrentRow.Cells[0].Value.ToString();
                 }
-                else if (columnIndex == 2)
+                else if (columnIndex == 1)
                 {
-                    textboxdetalleoId.Text = tablaDetalle.CurrentRow.Cells[2].Value.ToString();
+                    textboxdetalleoId.Text = tablaDetalle.CurrentRow.Cells[1].Value.ToString();
                 }
                 else
                 {

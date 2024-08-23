@@ -24,6 +24,7 @@ namespace ConsultasMedicas.Forms
             dataGridPaciente.RowTemplate.Height = 60;
             dataGridPaciente.ReadOnly = true;
             ActualizarConteoRegistros();
+
         }
         public void listas()
         {

@@ -73,6 +73,7 @@
             this.label10.Size = new System.Drawing.Size(280, 16);
             this.label10.TabIndex = 129;
             this.label10.Text = "Complete toda la información del Paciente";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // button1
             // 
@@ -223,6 +224,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 127;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // button3
             // 

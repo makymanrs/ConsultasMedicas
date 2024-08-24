@@ -57,7 +57,7 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
-
+        // busca los tratamientos en base a la nombre de la enfermedad como consulta
         public void buscarTratamientosPorNombreEnfermedad(DataGridView tablaTratamientos, TextBox nombreEnfermedad)
         {
             MySqlConnection conexion = null;
@@ -103,6 +103,7 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
+        // guardar los datos 
         public void guardarEnfermedad(TextBox nombre, RichTextBox descripcion, RichTextBox sintomas)
         {
             // Verificar si alguno de los campos está vacío
@@ -118,11 +119,26 @@ namespace ConsultasMedicas.Mysql
                 Conexion objetoConexion = new Conexion();
                 conexion = objetoConexion.establecerConexion();
 
+                // Convertir a minúsculas el nombre para la verificación
+                string nombreEnfermedad = nombre.Text.ToLower();
+
+                // Verificar si la enfermedad ya existe en la base de datos (sin importar mayúsculas o minúsculas)
+                string queryVerificar = "SELECT COUNT(*) FROM Enfermedades WHERE LOWER(nombre) = @nombre";
+                MySqlCommand comandoVerificar = new MySqlCommand(queryVerificar, conexion);
+                comandoVerificar.Parameters.AddWithValue("@nombre", nombreEnfermedad);
+                int count = Convert.ToInt32(comandoVerificar.ExecuteScalar());
+
+                if (count > 0)
+                {
+                    MessageBox.Show("La enfermedad ya está registrada.");
+                    return;
+                }
+
                 // Insertar en la tabla enfermedades
-                string query = "INSERT INTO Enfermedades (nombre, descripcion, sintomas) " +
-                               "VALUES (@nombre, @descripcion, @sintomas)";
-                MySqlCommand myCommandEnfermedad = new MySqlCommand(query, conexion);
-                myCommandEnfermedad.Parameters.AddWithValue("@nombre", nombre.Text);
+                string queryInsertar = "INSERT INTO Enfermedades (nombre, descripcion, sintomas) " +
+                                       "VALUES (@nombreOriginal, @descripcion, @sintomas)";
+                MySqlCommand myCommandEnfermedad = new MySqlCommand(queryInsertar, conexion);
+                myCommandEnfermedad.Parameters.AddWithValue("@nombreOriginal", nombre.Text);  // Usar el texto original para la inserción
                 myCommandEnfermedad.Parameters.AddWithValue("@descripcion", descripcion.Text);
                 myCommandEnfermedad.Parameters.AddWithValue("@sintomas", sintomas.Text);
 
@@ -141,7 +157,7 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
-
+        // muestra los detalles como los richtextbox 
         public void mostrarDetallesEnfermedad(TextBox nombreEnfermedad, RichTextBox descripcionEnfermedad, RichTextBox sintomasEnfermedad)
         {
             MySqlConnection conexion = null;
@@ -194,6 +210,7 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
+        // modificar o actualizar los datos 
         public void modificarEnfermedad(TextBox id, TextBox nombre, RichTextBox descripcion, RichTextBox sintomas)
         {
             MySqlConnection conexion = null;
@@ -228,7 +245,7 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
-
+        // busca las enfermedades solo con el nombre 
         public DataRow buscarEnfermedad(int id)
         {
             MySqlConnection conexion = null;
@@ -269,6 +286,7 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
+        // elimina las enfermedades aun falta por mejorar
         public void eliminarEnfermedad(TextBox cod, DataGridView tablaEnfermedad)
         {
             MySqlConnection conexion = null;
@@ -307,6 +325,132 @@ namespace ConsultasMedicas.Mysql
             }
         }
 
+        // muestra las enfermedades ya registradas
+        public void mostrarEnfermedades(DataGridView tablaEnfermedades)
+        {
+            MySqlConnection conexion = null;
+            try
+            {
+                // Establecer la conexión con la base de datos
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
+
+                // Consulta SQL para obtener todas las enfermedades
+                string query = "SELECT id_enfermedad AS 'ID', " +
+                               "nombre AS 'Nombre', " +
+                               "descripcion AS 'Descripción', " +
+                               "sintomas AS 'Síntomas' " +
+                               "FROM Enfermedades";
+
+                // Crear el adaptador de datos y la tabla
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, conexion);
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                // Asignar los datos al DataGridView
+                tablaEnfermedades.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                MessageBox.Show("No se encontraron los datos de la base de datos, error: " + ex.ToString());
+            }
+            finally
+            {
+                // Cerrar la conexión
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        // Busqueda de enfermedades por filtros
+        public void BuscarEnfermedadesPorFiltros(DataGridView tablaEnfermedades, TextBox textBoxFiltro, ComboBox comboBoxFiltro)
+        {
+            MySqlConnection conexion = null;
+            try
+            {
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
+
+                // Construir la consulta base
+                string query = "SELECT id_enfermedad AS 'Código', nombre AS 'Nombre', descripcion AS 'Descripción', sintomas AS 'Síntomas' FROM Enfermedades WHERE 1=1";
+
+                // Determinar el filtro basado en la selección del ComboBox
+                if (comboBoxFiltro.SelectedItem.ToString() == "Nombre" && !string.IsNullOrWhiteSpace(textBoxFiltro.Text))
+                {
+                    query += " AND nombre LIKE @filtro";
+                }
+                else if (comboBoxFiltro.SelectedItem.ToString() == "Código" && !string.IsNullOrWhiteSpace(textBoxFiltro.Text))
+                {
+                    query += " AND id_enfermedad = @filtro";
+                }
+
+                MySqlCommand command = new MySqlCommand(query, conexion);
+
+                // Asignar valores a los parámetros
+                if (!string.IsNullOrWhiteSpace(textBoxFiltro.Text))
+                {
+                    if (comboBoxFiltro.SelectedItem.ToString() == "Nombre")
+                    {
+                        command.Parameters.AddWithValue("@filtro", "%" + textBoxFiltro.Text.Trim() + "%");
+                    }
+                    else if (comboBoxFiltro.SelectedItem.ToString() == "Código")
+                    {
+                        command.Parameters.AddWithValue("@filtro", textBoxFiltro.Text.Trim());
+                    }
+                }
+
+                // Adaptador para llenar los datos en un DataTable
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                // Limpiar el DataGridView antes de mostrar los resultados
+                tablaEnfermedades.DataSource = null;
+                tablaEnfermedades.Rows.Clear();
+
+                // Asignar el DataTable con los resultados al DataGridView
+                tablaEnfermedades.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al buscar enfermedad: " + ex.Message);
+            }
+            finally
+            {
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        public void seleccionarEnfermedad(DataGridView tablaDetalle, TextBox textboxdetalleoId)
+        {
+            try
+            {
+                // Obtener el índice de la columna seleccionada
+                int columnIndex = tablaDetalle.CurrentCell.ColumnIndex;
+                if (columnIndex == 0)
+                {
+                    textboxdetalleoId.Text = tablaDetalle.CurrentRow.Cells[0].Value.ToString();
+                }
+                else if (columnIndex == 1)
+                {
+                    textboxdetalleoId.Text = tablaDetalle.CurrentRow.Cells[1].Value.ToString();
+                }
+                else
+                {
+                    // Puedes manejar el caso cuando no es ninguna de las columnas deseadas
+                    MessageBox.Show("No se seleccionó una columna válida.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se logró seleccionar, error: " + ex.ToString());
+            }
+        }
 
     }
 }

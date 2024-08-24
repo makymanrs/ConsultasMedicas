@@ -15,6 +15,7 @@ namespace ConsultasMedicas.Forms
 {
     public partial class FormEditarEnfermedad : Form
     {
+        public event Action OnDataUpdated;
         public FormEditarEnfermedad()
         {
             InitializeComponent();
@@ -85,6 +86,7 @@ namespace ConsultasMedicas.Forms
         {
             Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
             objetoEnfermedad.modificarEnfermedad(textBox2,textBox1,richTextBox1,richTextBox2);
+            OnDataUpdated?.Invoke();
         }
 
         private void button3_Click(object sender, EventArgs e)

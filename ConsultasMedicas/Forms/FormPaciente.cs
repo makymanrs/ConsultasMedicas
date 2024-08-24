@@ -57,6 +57,7 @@ namespace ConsultasMedicas.Forms
         {
             Mysql.Cpacientes objetoPaciente = new Mysql.Cpacientes();
             objetoPaciente.mostrarPaciente(dataGridPaciente);
+            textBox1.Text = "";
             ActualizarConteoRegistros();
         }
 

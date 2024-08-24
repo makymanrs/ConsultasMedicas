@@ -163,6 +163,16 @@ namespace ConsultasMedicas.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap maximize1 {
+            get {
+                object obj = ResourceManager.GetObject("maximize1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap nota {
             get {
                 object obj = ResourceManager.GetObject("nota", resourceCulture);
@@ -186,6 +196,16 @@ namespace ConsultasMedicas.Properties {
         internal static System.Drawing.Bitmap propagar {
             get {
                 object obj = ResourceManager.GetObject("propagar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tablas {
+            get {
+                object obj = ResourceManager.GetObject("Tablas", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

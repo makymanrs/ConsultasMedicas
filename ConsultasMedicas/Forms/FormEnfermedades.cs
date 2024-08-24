@@ -23,10 +23,9 @@ namespace ConsultasMedicas.Forms
             }
             dataGridEnfermedad.RowTemplate.Height = 60;
             dataGridEnfermedad.ReadOnly = true;
-           
             dataGridEnfermedad.BorderStyle = BorderStyle.FixedSingle;
-            ActualizarConteoRegistros();
             dataGridEnfermedad.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ActualizarConteoRegistros();
         }
         private void ActualizarConteoRegistros()
         {
@@ -43,7 +42,7 @@ namespace ConsultasMedicas.Forms
             Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
             objetoEnfermedad.buscarTratamientosPorNombreEnfermedad(dataGridEnfermedad, textBox1);
             objetoEnfermedad.mostrarDetallesEnfermedad(textBox1, richTextBox1, richTextBox2);
-            //ActualizarConteoRegistros();
+            ActualizarConteoRegistros();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -59,6 +58,8 @@ namespace ConsultasMedicas.Forms
             objetoEnfermedad.mostrarTratamientosPorEnfermedad(dataGridEnfermedad);
             richTextBox1.Text = "";
             richTextBox2.Text = "";
+            textBox1.Text = "";
+            ActualizarConteoRegistros();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -66,13 +67,11 @@ namespace ConsultasMedicas.Forms
             FormEditarEnfermedad formEditar = new FormEditarEnfermedad();
             formEditar.ShowDialog();
         }
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-        }
+  
         private void button6_Click(object sender, EventArgs e)
         {
-
+            FormDetalleEnfermedades Formdetalle = new FormDetalleEnfermedades();
+            Formdetalle.ShowDialog();   
         }
 
       

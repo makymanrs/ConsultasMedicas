@@ -122,6 +122,9 @@
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDetalleEnfermedades.resx">
+      <DependentUpon>FormDetalleEnfermedades.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEditarEnfermedad.resx">
       <DependentUpon>FormEditarEnfermedad.cs</DependentUpon>
     </EmbeddedResource>
@@ -224,6 +227,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\editar-informacion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tablas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tablas1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tablas2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximize1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

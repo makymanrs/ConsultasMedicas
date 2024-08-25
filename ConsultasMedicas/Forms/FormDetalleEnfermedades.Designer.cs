@@ -153,6 +153,7 @@
             this.dataGridDetalleEnfermedad.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridDetalleEnfermedad.Size = new System.Drawing.Size(987, 416);
             this.dataGridDetalleEnfermedad.TabIndex = 112;
+            this.dataGridDetalleEnfermedad.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDetalleEnfermedad_CellClick);
             this.dataGridDetalleEnfermedad.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridDetalleEnfermedad_CellDoubleClick);
             this.dataGridDetalleEnfermedad.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridDetalleEnfermedad_RowPostPaint);
             // 

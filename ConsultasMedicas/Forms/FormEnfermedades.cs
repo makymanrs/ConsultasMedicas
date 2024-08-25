@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConsultasMedicas.Mysql;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -70,10 +72,32 @@ namespace ConsultasMedicas.Forms
   
         private void button6_Click(object sender, EventArgs e)
         {
-            FormDetalleEnfermedades Formdetalle = new FormDetalleEnfermedades();
-            Formdetalle.ShowDialog();   
+            FormDetalleEnfermedades mostrarForm = new FormDetalleEnfermedades();
+
+            // Mostrar el formulario de manera modal
+            mostrarForm.ShowDialog();
         }
 
-      
+        private void dataGridEnfermedad_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verifica que no se haya hecho clic en el encabezado de columna o fuera del rango de celdas
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            // Verifica si se ha hecho clic en la última celda de la fila
+            if (e.ColumnIndex == dataGridEnfermedad.Columns.Count - 1)  // Última celda de la fila
+            {
+                // Obtén el valor de la celda
+                var cellValue = dataGridEnfermedad.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                // Abre el formulario FormDetalles
+                prueba formDetalles = new prueba();
+
+                // Opcionalmente, puedes pasarle información al nuevo formulario
+                formDetalles.SomeProperty = cellValue?.ToString();
+
+                formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
+            }
+        }
     }
 }

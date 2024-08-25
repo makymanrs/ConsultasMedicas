@@ -108,6 +108,7 @@
             this.dataGridEnfermedad.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridEnfermedad.Size = new System.Drawing.Size(1017, 203);
             this.dataGridEnfermedad.TabIndex = 103;
+            this.dataGridEnfermedad.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridEnfermedad_CellClick);
             // 
             // panel4
             // 

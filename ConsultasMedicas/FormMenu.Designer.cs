@@ -138,7 +138,7 @@
             this.labelhr.AutoSize = true;
             this.labelhr.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelhr.ForeColor = System.Drawing.Color.Blue;
-            this.labelhr.Location = new System.Drawing.Point(317, 15);
+            this.labelhr.Location = new System.Drawing.Point(336, 15);
             this.labelhr.Name = "labelhr";
             this.labelhr.Size = new System.Drawing.Size(52, 18);
             this.labelhr.TabIndex = 8;

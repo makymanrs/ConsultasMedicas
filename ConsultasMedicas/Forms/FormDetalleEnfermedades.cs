@@ -8,16 +8,36 @@ namespace ConsultasMedicas.Forms
 {
     public partial class FormDetalleEnfermedades : Form
     {
-        public FormDetalleEnfermedades()
+        private FormTratamiento formTratamiento;
+        private FormEnfermedades formEnfermedades;
+
+        public FormDetalleEnfermedades(FormTratamiento formTratamiento = null)
         {
             InitializeComponent();
             // Establece la región redondeada inicial
+            this.formTratamiento = formTratamiento;
             ApplyRoundRectangleRegion();
             // Carga los datos en el DataGridView
             LoadData();
             // Configura el evento de redimensionamiento
             this.Resize += FormDetalleEnfermedades_Resize;
         }
+
+        public FormDetalleEnfermedades(FormEnfermedades formEnfermedades)
+        {
+            this.formEnfermedades = formEnfermedades;
+        }
+
+        public FormDetalleEnfermedades()
+        {
+            InitializeComponent();
+            ApplyRoundRectangleRegion();
+            // Carga los datos en el DataGridView
+            LoadData();
+            // Configura el evento de redimensionamiento
+            this.Resize += FormDetalleEnfermedades_Resize;
+        }
+
         public void lista()
         {
             comboBox1.Items.Add("Ninguno");
@@ -219,6 +239,26 @@ namespace ConsultasMedicas.Forms
                         cell.Style.Font = new Font(dataGridView.Font.FontFamily, 10, FontStyle.Regular); // Restablece el tamaño de letra a 10 y quita la negrita
                         cell.Style.ForeColor = Color.Black;
                     }
+                }
+            }
+        }
+
+        private void dataGridDetalleEnfermedad_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar que la fila seleccionada es válida
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridDetalleEnfermedad.Rows.Count)
+            {
+                // Verificar si FormDetalleEnfermedades fue abierto desde FormTratamiento
+                if (formTratamiento != null)
+                {
+                    // Obtener el código seleccionado
+                    string codigoSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                    // Pasar el código seleccionado a FormTratamiento
+                    formTratamiento.CodigoEnfermedad = codigoSeleccionado;
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
             }
         }

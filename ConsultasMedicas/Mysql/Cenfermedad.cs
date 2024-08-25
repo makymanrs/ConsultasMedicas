@@ -375,7 +375,7 @@ namespace ConsultasMedicas.Mysql
                 conexion = objetoConexion.establecerConexion();
 
                 // Construir la consulta base
-                string query = "SELECT id_enfermedad AS 'Código', nombre AS 'Nombre', descripcion AS 'Descripción', sintomas AS 'Síntomas' FROM Enfermedades WHERE 1=1";
+                string query = "SELECT id_enfermedad AS 'ID', nombre AS 'Nombre', descripcion AS 'Descripción', sintomas AS 'Síntomas' FROM Enfermedades WHERE 1=1";
 
                 // Determinar el filtro basado en la selección del ComboBox
                 if (comboBoxFiltro.SelectedItem.ToString() == "Nombre" && !string.IsNullOrWhiteSpace(textBoxFiltro.Text))
@@ -451,6 +451,38 @@ namespace ConsultasMedicas.Mysql
                 MessageBox.Show("No se logró seleccionar, error: " + ex.ToString());
             }
         }
+        public List<string> ObtenerNombresEnfermedades()
+        {
+            List<string> nombresEnfermedades = new List<string>();
+            MySqlConnection conexion = null;
 
+            try
+            {
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
+
+                string query = "SELECT nombre FROM Enfermedades";
+                MySqlCommand command = new MySqlCommand(query, conexion);
+
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    nombresEnfermedades.Add(reader["nombre"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener nombres de enfermedades: " + ex.Message);
+            }
+            finally
+            {
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+
+            return nombresEnfermedades;
+        }
     }
 }

@@ -110,14 +110,74 @@ namespace ConsultasMedicas.Forms
             button3.BackColor = Color.FromArgb(33, 33, 33);
         }
 
-        private void label10_Click(object sender, EventArgs e)
-        {
+       
 
+        private void maskedTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                textBox1.Focus();
+            }
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                textBox2.Focus();
+            }
+        }
 
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                dateTimePicker1.Focus();
+            }
+        }
+
+        private void dateTimePicker1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                numericUpDown1.Focus();
+            }
+        }
+
+        private void numericUpDown1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                textBox3.Focus();
+            }
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                maskedTextBox2.Focus();
+            }
+        }
+
+        private void maskedTextBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                button1.Focus();
+            }
+        }
+
+        private void FormInsertarPaciente_Load(object sender, EventArgs e)
+        {
+            maskedTextBox1.TabIndex = 0;
+            maskedTextBox1.Focus();
         }
     }
 }

@@ -80,6 +80,7 @@
             this.richTextBox2.Size = new System.Drawing.Size(388, 96);
             this.richTextBox2.TabIndex = 161;
             this.richTextBox2.Text = "";
+            this.richTextBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox2_KeyPress);
             // 
             // label10
             // 
@@ -124,6 +125,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(388, 96);
             this.richTextBox1.TabIndex = 157;
             this.richTextBox1.Text = "";
+            this.richTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
             // 
             // textBox1
             // 
@@ -132,6 +134,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(211, 20);
             this.textBox1.TabIndex = 156;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // label6
             // 
@@ -230,6 +233,7 @@
             this.Name = "FormEditarEnfermedad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormEditarEnfermedad";
+            this.Load += new System.EventHandler(this.FormEditarEnfermedad_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

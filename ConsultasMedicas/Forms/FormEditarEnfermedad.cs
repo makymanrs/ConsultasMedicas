@@ -116,5 +116,37 @@ namespace ConsultasMedicas.Forms
                 MessageBox.Show("Ingrese un valor numérico válido para buscar.");
             }
         }
+
+        private void FormEditarEnfermedad_Load(object sender, EventArgs e)
+        {
+            textBox2.Focus();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                richTextBox1.Focus();
+            }
+        }
+
+        private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                richTextBox2.Focus();
+            }
+        }
+
+        private void richTextBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                button2.Focus();
+            }
+        }
     }
 }

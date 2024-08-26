@@ -91,7 +91,7 @@ namespace ConsultasMedicas.Forms
                 var cellValue = dataGridEnfermedad.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
 
                 // Abre el formulario FormDetalles
-                prueba formDetalles = new prueba();
+                FormObservaciones formDetalles = new FormObservaciones();
 
                 // Opcionalmente, puedes pasarle información al nuevo formulario
                 formDetalles.SomeProperty = cellValue?.ToString();

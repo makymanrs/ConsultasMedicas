@@ -95,6 +95,99 @@ namespace ConsultasMedicas.Mysql
                 MessageBox.Show("Error al insertar los detalles del tratamiento: " + ex.Message);
             }
         }
+        public void eliminarTratamiento(DataGridView tablaTratamiento)
+        {
+            // Verificar si hay una fila seleccionada
+            if (tablaTratamiento.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione un tratamiento para eliminar.");
+                return;
+            }
 
+            MySqlConnection conexion = null;
+            try
+            {
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
+
+                // Obtener el id_tratamiento de la fila seleccionada
+                int idTratamiento = Convert.ToInt32(tablaTratamiento.SelectedRows[0].Cells["ID Tratamiento"].Value);
+
+                // Eliminar el tratamiento de la tabla Tratamientos
+                string queryTratamiento = "DELETE FROM Tratamientos WHERE id_tratamiento = @idTratamiento";
+                MySqlCommand commandTratamiento = new MySqlCommand(queryTratamiento, conexion);
+                commandTratamiento.Parameters.AddWithValue("@idTratamiento", idTratamiento);
+
+                int rowsAffected = commandTratamiento.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Se eliminó el registro del tratamiento.");
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró ningún tratamiento con ese ID.");
+                }
+
+                // Opcional: Actualizar el DataGridView después de la eliminación
+                // Puedes implementar una función para volver a cargar los datos en tablaTratamiento
+               // Asegúrate de tener este método en tu clase Ctratamiento
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo eliminar el registro del tratamiento. Error: " + ex.Message);
+            }
+            finally
+            {
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        public void modificarTratamiento(int idTratamiento, TextBox medicamento, TextBox dosis, TextBox duracion, RichTextBox observaciones)
+        {
+            MySqlConnection conexion = null;
+            try
+            {
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
+                string observacionesConViñetas = FormatearTextoConViñetas(observaciones);
+                string query = "UPDATE Tratamientos SET medicamento=@medicamento, dosis=@dosis, duracion=@duracion, observaciones=@observaciones WHERE id_tratamiento=@idTratamiento";
+                MySqlCommand command = new MySqlCommand(query, conexion);
+                command.Parameters.AddWithValue("@idTratamiento", idTratamiento);
+                command.Parameters.AddWithValue("@medicamento", medicamento.Text);
+                command.Parameters.AddWithValue("@dosis", dosis.Text);
+                command.Parameters.AddWithValue("@duracion", duracion.Text);
+                command.Parameters.AddWithValue("@observaciones", observaciones.Text);
+
+                command.ExecuteNonQuery();
+                MessageBox.Show("Se modificaron los registros del tratamiento correctamente");
+
+                // Opcional: actualizar la tabla para mostrar los cambios
+                // Puedes volver a cargar los datos en tablaTratamiento
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo modificar el registro del tratamiento: " + ex.Message);
+            }
+            finally
+            {
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        private string FormatearTextoConViñetas(RichTextBox richTextBox)
+        {
+            // Convierte el contenido del RichTextBox a texto con viñetas
+            StringBuilder sb = new StringBuilder();
+            foreach (string line in richTextBox.Lines)
+            {
+                sb.AppendLine("• " + line);  // Usar "• " para agregar viñetas
+            }
+            return sb.ToString().Trim();
+        }
     }
 }

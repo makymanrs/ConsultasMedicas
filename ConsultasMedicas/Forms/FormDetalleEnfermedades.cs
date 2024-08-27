@@ -9,6 +9,7 @@ namespace ConsultasMedicas.Forms
     public partial class FormDetalleEnfermedades : Form
     {
         private FormTratamiento formTratamiento;
+        private FormVerTratamientos formVerTratamientos;
         private FormEnfermedades formEnfermedades;
 
         public FormDetalleEnfermedades(FormTratamiento formTratamiento = null)
@@ -16,6 +17,17 @@ namespace ConsultasMedicas.Forms
             InitializeComponent();
             // Establece la región redondeada inicial
             this.formTratamiento = formTratamiento;
+            ApplyRoundRectangleRegion();
+            // Carga los datos en el DataGridView
+            LoadData();
+            // Configura el evento de redimensionamiento
+            this.Resize += FormDetalleEnfermedades_Resize;
+        }
+        public FormDetalleEnfermedades(FormVerTratamientos formVerTratamientos = null)
+        {
+            InitializeComponent();
+            // Establece la región redondeada inicial
+            this.formVerTratamientos = formVerTratamientos;
             ApplyRoundRectangleRegion();
             // Carga los datos en el DataGridView
             LoadData();
@@ -261,6 +273,28 @@ namespace ConsultasMedicas.Forms
                     this.Close();
                 }
             }
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridDetalleEnfermedad.Rows.Count)
+            {
+                // Verificar si FormDetalleEnfermedades fue abierto desde FormTratamiento
+                if (formVerTratamientos != null)
+                {
+                    // Obtener el código seleccionado
+                    string codigoSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[1].Value.ToString();
+
+                    // Pasar el código seleccionado a FormTratamiento
+                    formVerTratamientos.nombreEnfermedad = codigoSeleccionado;
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
+            objetoEnfermedad.eliminarEnfermedad(dataGridDetalleEnfermedad);
+            objetoEnfermedad.mostrarEnfermedades(dataGridDetalleEnfermedad);
         }
     }
 }

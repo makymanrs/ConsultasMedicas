@@ -85,7 +85,7 @@ namespace ConsultasMedicas.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
-            objetoEnfermedad.modificarEnfermedad(textBox2,textBox1,richTextBox1,richTextBox2);
+            objetoEnfermedad.modificarEnfermedad(textBox2, textBox1, richTextBox1, richTextBox2);
             OnDataUpdated?.Invoke();
         }
 

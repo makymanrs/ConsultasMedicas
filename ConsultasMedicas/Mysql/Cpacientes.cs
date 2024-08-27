@@ -172,38 +172,46 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
-        public void eliminarPaciente(TextBox cod, DataGridView tablaPaciente)
+        public void eliminarPaciente(DataGridView dataGridPaciente)
         {
+            // Verificar si hay una fila seleccionada
+            if (dataGridPaciente.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione un paciente para eliminar.");
+                return;
+            }
+
             MySqlConnection conexion = null;
             try
             {
                 Conexion objetoConexion = new Conexion();
                 conexion = objetoConexion.establecerConexion();
 
+                // Obtener el ID del paciente de la fila seleccionada
+                int idPaciente = Convert.ToInt32(dataGridPaciente.SelectedRows[0].Cells["ID"].Value);
+
                 // Eliminar el paciente de la tabla paciente
                 string queryPaciente = "DELETE FROM paciente WHERE pac_id = @pacid";
                 MySqlCommand commandPaciente = new MySqlCommand(queryPaciente, conexion);
-                commandPaciente.Parameters.AddWithValue("@pacid", cod.Text);
+                commandPaciente.Parameters.AddWithValue("@pacid", idPaciente);
 
                 int rowsAffected = commandPaciente.ExecuteNonQuery();
 
                 if (rowsAffected > 0)
                 {
-                    MessageBox.Show("Se eliminó el registro del Paciente.");
+                    MessageBox.Show("Se eliminó el registro del paciente.");
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró ningún Paciente con ese ID.");
+                    MessageBox.Show("No se encontró ningún paciente con ese ID.");
                 }
 
                 // Opcional: Actualizar el DataGridView después de la eliminación
-                // Puedes implementar una función para volver a cargar los datos en tablaPaciente
-                Mysql.Cpacientes objetoPaciente = new Mysql.Cpacientes();
-                objetoPaciente.mostrarPaciente(tablaPaciente); // Asegúrate de tener este método en tu clase Cpacientes
+                //MostrarPacientes(dataGridPaciente); // Asegúrate de tener este método en tu clase Cpacientes
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo eliminar el registro del Paciente. Error: " + ex.Message);
+                MessageBox.Show("No se pudo eliminar el registro del paciente. Error: " + ex.Message);
             }
             finally
             {

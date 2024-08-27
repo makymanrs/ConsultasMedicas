@@ -46,11 +46,35 @@ namespace ConsultasMedicas.Forms
 
         private void button4_Click(object sender, EventArgs e)
         {
-            FormEditarPaciente formModificar = new FormEditarPaciente();
-            formModificar.PacienteModificado += FormModificar_PacienteModificado; // Suscríbete al evento
-                                                                              // Configura el formulario para la modificación (por ejemplo, carga los datos del paciente a modificar)                                                           // Aquí podrías pasar el ID del paciente al formulario para cargar los datos necesarios.
-            formModificar.ShowDialog(); // Mostrar el formulario de modificación
+            if (dataGridPaciente.SelectedRows.Count > 0) // Verificar si hay una fila seleccionada
+            {
+                // Obtener los datos de la fila seleccionada
+                int idPaciente = Convert.ToInt32(dataGridPaciente.SelectedRows[0].Cells["ID"].Value);
+                string nombreCompleto = dataGridPaciente.SelectedRows[0].Cells["Nombre Completo"].Value.ToString();
+                string identidad = dataGridPaciente.SelectedRows[0].Cells["Identidad"].Value.ToString();
+                string fechaNacimiento = dataGridPaciente.SelectedRows[0].Cells["Fecha de Nacimiento"].Value.ToString();
+                string edad = dataGridPaciente.SelectedRows[0].Cells["Edad"].Value.ToString();
+                string direccion = dataGridPaciente.SelectedRows[0].Cells["Direccion"].Value.ToString();
+                string telefono = dataGridPaciente.SelectedRows[0].Cells["Telefono"].Value.ToString();
 
+                // Dividir nombre completo en nombre y apellido
+                string[] nombrePartes = nombreCompleto.Split(' ', (char)2); // Divide en el primer espacio
+
+                string nombre = nombrePartes.Length > 0 ? nombrePartes[0] : string.Empty;
+                string apellido = nombrePartes.Length > 1 ? nombrePartes[1] : string.Empty;
+
+                // Crear el formulario de edición con los datos obtenidos
+                FormEditarPaciente formEditar = new FormEditarPaciente(idPaciente, nombre, apellido, identidad, fechaNacimiento, edad, direccion, telefono);
+                formEditar.PacienteModificado += FormModificar_PacienteModificado; // Suscríbete al evento de modificación
+                formEditar.ShowDialog();
+
+                // Opcional: refrescar el DataGridView después de editar
+                // button2_Click(sender, e); // Asumiendo que button2_Click refresca el DataGridView
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila para editar.");
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -75,7 +99,7 @@ namespace ConsultasMedicas.Forms
         private void button5_Click(object sender, EventArgs e)
         {
             Mysql.Cpacientes objetoPaciente = new Mysql.Cpacientes();
-            objetoPaciente.eliminarPaciente(textBox1,dataGridPaciente);
+            objetoPaciente.eliminarPaciente(dataGridPaciente);
             objetoPaciente.mostrarPaciente(dataGridPaciente);
             ActualizarConteoRegistros();
         }

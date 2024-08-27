@@ -19,11 +19,44 @@ namespace ConsultasMedicas.Forms
         public delegate void PacienteModificadoEventHandler(object sender, EventArgs e);
         // Define el evento basado en el delegado
         public event PacienteModificadoEventHandler PacienteModificado;
-        public FormEditarPaciente()
+
+        public FormEditarPaciente(int id, string nombre, string apellido, string identidad, string fechaNacimiento, string edad, string direccion, string telefono)
         {
             InitializeComponent();
-            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20)); // aqui se establece como sera la esquina redondeada
 
+            // Establecer bordes redondeados
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+
+            // Inicializar controles con los valores proporcionados
+            textBox4.Text = id.ToString(); // Asumir que textBox1 es para ID y debe ser un texto
+            textBox2.Text = apellido;
+            textBox1.Text = nombre;
+            maskedTextBox1.Text = identidad;
+
+            // Asegurarse de que la fecha se parsea correctamente
+            if (DateTime.TryParse(fechaNacimiento, out DateTime parsedDate))
+            {
+                dateTimePicker1.Value = parsedDate;
+            }
+            else
+            {
+                // Manejar la fecha inválida, si es necesario
+                MessageBox.Show("Fecha de nacimiento no válida.");
+            }
+
+            // Usar numericUpDown para edad, que es un número entero
+            if (int.TryParse(edad, out int parsedEdad))
+            {
+                numericUpDown1.Value = parsedEdad;
+            }
+            else
+            {
+                // Manejar edad inválida, si es necesario
+                MessageBox.Show("Edad no válida.");
+            }
+
+            textBox3.Text = direccion;
+            maskedTextBox2.Text = telefono;
         }
         protected virtual void OnPacienteModificado(EventArgs e)
         {

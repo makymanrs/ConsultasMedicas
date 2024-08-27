@@ -287,34 +287,53 @@ namespace ConsultasMedicas.Mysql
             }
         }
         // elimina las enfermedades aun falta por mejorar
-        public void eliminarEnfermedad(TextBox cod, DataGridView tablaEnfermedad)
+        public void eliminarEnfermedad(DataGridView dataGridEnfermedad)
         {
+            // Verificar si hay una fila seleccionada
+            if (dataGridEnfermedad.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione una enfermedad para eliminar.");
+                return;
+            }
+
             MySqlConnection conexion = null;
             try
             {
                 Conexion objetoConexion = new Conexion();
                 conexion = objetoConexion.establecerConexion();
 
-                // Eliminar la enfermedad de la tabla Enfermedades
-                string queryEnfermedad = "DELETE FROM Enfermedades WHERE id_enfermedad = @enfermedadId";
-                MySqlCommand commandEnfermedad = new MySqlCommand(queryEnfermedad, conexion);
-                commandEnfermedad.Parameters.AddWithValue("@enfermedadId", cod.Text);
+                // Obtener el ID de la enfermedad de la fila seleccionada
+                int idEnfermedad = Convert.ToInt32(dataGridEnfermedad.SelectedRows[0].Cells["ID"].Value);
 
-                int rowsAffected = commandEnfermedad.ExecuteNonQuery();
+                // Eliminar los tratamientos asociados a la enfermedad
+                string queryEliminarTratamientos = "DELETE FROM Tratamientos WHERE id_enfermedad = @idEnfermedad";
+                MySqlCommand commandEliminarTratamientos = new MySqlCommand(queryEliminarTratamientos, conexion);
+                commandEliminarTratamientos.Parameters.AddWithValue("@idEnfermedad", idEnfermedad);
+                commandEliminarTratamientos.ExecuteNonQuery();
+
+                // Eliminar la enfermedad de la tabla Enfermedades
+                string queryEliminarEnfermedad = "DELETE FROM Enfermedades WHERE id_enfermedad = @idEnfermedad";
+                MySqlCommand commandEliminarEnfermedad = new MySqlCommand(queryEliminarEnfermedad, conexion);
+                commandEliminarEnfermedad.Parameters.AddWithValue("@idEnfermedad", idEnfermedad);
+
+                int rowsAffected = commandEliminarEnfermedad.ExecuteNonQuery();
 
                 if (rowsAffected > 0)
                 {
-                    MessageBox.Show("Se eliminó el registro de la Enfermedad.");
+                    MessageBox.Show("Se eliminó el registro de la enfermedad.");
                 }
                 else
                 {
-                    MessageBox.Show("No se encontró ninguna Enfermedad con ese ID.");
+                    MessageBox.Show("No se encontró ninguna enfermedad con ese ID.");
                 }
 
+                // Opcional: Actualizar el DataGridView después de la eliminación
+                // Puedes implementar una función para volver a cargar los datos en dataGridEnfermedad
+                // ActualizarDataGridView(dataGridEnfermedad); // Asegúrate de tener este método en tu clase Cpacientes
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo eliminar el registro de la Enfermedad. Error: " + ex.Message);
+                MessageBox.Show("No se pudo eliminar el registro de la enfermedad. Error: " + ex.Message);
             }
             finally
             {
@@ -324,6 +343,8 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
+
+
 
         // muestra las enfermedades ya registradas
         public void mostrarEnfermedades(DataGridView tablaEnfermedades)
@@ -483,6 +504,11 @@ namespace ConsultasMedicas.Mysql
             }
 
             return nombresEnfermedades;
+        }
+
+        internal void modificarEnfermedad(int id, string text1, string text2, string text3)
+        {
+            throw new NotImplementedException();
         }
     }
 }

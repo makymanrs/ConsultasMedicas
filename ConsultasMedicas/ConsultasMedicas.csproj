@@ -70,6 +70,12 @@
     <Compile Include="Forms\FormEditarPaciente.Designer.cs">
       <DependentUpon>FormEditarPaciente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormEditarTratamiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEditarTratamiento.Designer.cs">
+      <DependentUpon>FormEditarTratamiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormEnfermedades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,12 @@
     <Compile Include="Forms\FormTratamiento.Designer.cs">
       <DependentUpon>FormTratamiento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormVerTratamientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormVerTratamientos.Designer.cs">
+      <DependentUpon>FormVerTratamientos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +149,9 @@
     <EmbeddedResource Include="Forms\FormEditarPaciente.resx">
       <DependentUpon>FormEditarPaciente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormEditarTratamiento.resx">
+      <DependentUpon>FormEditarTratamiento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEnfermedades.resx">
       <DependentUpon>FormEnfermedades.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormTratamiento.resx">
       <DependentUpon>FormTratamiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormVerTratamientos.resx">
+      <DependentUpon>FormVerTratamientos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

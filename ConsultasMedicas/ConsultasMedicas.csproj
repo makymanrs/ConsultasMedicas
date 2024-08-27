@@ -276,5 +276,11 @@
   <ItemGroup>
     <None Include="Resources\guardartratamiento1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cargar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cargardatos.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

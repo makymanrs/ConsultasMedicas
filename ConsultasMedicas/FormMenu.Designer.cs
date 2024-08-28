@@ -54,9 +54,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
@@ -125,6 +125,7 @@
             // 
             // pictureBox5
             // 
+            this.pictureBox5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox5.Image = global::ConsultasMedicas.Properties.Resources.salud;
             this.pictureBox5.Location = new System.Drawing.Point(543, 47);
             this.pictureBox5.Name = "pictureBox5";
@@ -243,7 +244,7 @@
             this.labelhr.AutoSize = true;
             this.labelhr.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelhr.ForeColor = System.Drawing.Color.Blue;
-            this.labelhr.Location = new System.Drawing.Point(336, 15);
+            this.labelhr.Location = new System.Drawing.Point(345, 15);
             this.labelhr.Name = "labelhr";
             this.labelhr.Size = new System.Drawing.Size(52, 18);
             this.labelhr.TabIndex = 8;
@@ -354,6 +355,16 @@
             this.tabPage4.Text = "Tratamientos";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // tabPage5
+            // 
+            this.tabPage5.ImageKey = "examen-medico.png";
+            this.tabPage5.Location = new System.Drawing.Point(4, 39);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1084, 496);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Historial Medico";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -370,16 +381,6 @@
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.ImageKey = "examen-medico.png";
-            this.tabPage5.Location = new System.Drawing.Point(4, 39);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1084, 496);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Historial Medico";
-            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // FormMenu
             // 

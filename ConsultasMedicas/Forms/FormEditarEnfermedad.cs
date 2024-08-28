@@ -16,10 +16,14 @@ namespace ConsultasMedicas.Forms
     public partial class FormEditarEnfermedad : Form
     {
         public event Action OnDataUpdated;
-        public FormEditarEnfermedad()
+        public FormEditarEnfermedad(int id, string nombre, string descripcion, string sintomas)
         {
             InitializeComponent();
             this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20)); // aqui se establece como sera la esquina redondeada
+            textBox2.Text = id.ToString();
+            textBox1.Text = nombre;
+            richTextBox1.Text = descripcion;
+            richTextBox2.Text = sintomas;
         }
         protected override void OnPaint(PaintEventArgs e)
         {

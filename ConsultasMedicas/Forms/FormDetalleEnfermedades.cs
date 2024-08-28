@@ -167,13 +167,28 @@ namespace ConsultasMedicas.Forms
 
         private void button4_Click(object sender, EventArgs e)
         {
-            FormEditarEnfermedad formEditar = new FormEditarEnfermedad();
-            formEditar.OnDataUpdated += () =>
+            if (dataGridDetalleEnfermedad.SelectedRows.Count > 0) // Verificar si hay una fila seleccionada
             {
-                // Actualiza los datos después de editar
-                LoadData();
-            };
-            formEditar.ShowDialog();
+                // Obtener los datos de la fila seleccionada
+                int idEnfermedad = Convert.ToInt32(dataGridDetalleEnfermedad.SelectedRows[0].Cells["ID"].Value);
+                string nombreEnfermedad = dataGridDetalleEnfermedad.SelectedRows[0].Cells["Nombre"].Value?.ToString() ?? string.Empty;
+                string descripcionEnfermedad = dataGridDetalleEnfermedad.SelectedRows[0].Cells["Descripción"].Value?.ToString() ?? string.Empty;
+                string sintomasEnfermedad = dataGridDetalleEnfermedad.SelectedRows[0].Cells["Síntomas"].Value?.ToString() ?? string.Empty;
+
+                // Crear el formulario de edición con los datos obtenidos
+                FormEditarEnfermedad formEditar = new FormEditarEnfermedad(idEnfermedad, nombreEnfermedad, descripcionEnfermedad, sintomasEnfermedad);
+
+                formEditar.OnDataUpdated += () =>
+                {
+                    // Actualiza los datos después de editar
+                    LoadData();
+                };
+                formEditar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila para editar.");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -472,43 +472,32 @@ namespace ConsultasMedicas.Mysql
                 MessageBox.Show("No se logró seleccionar, error: " + ex.ToString());
             }
         }
-        public List<string> ObtenerNombresEnfermedades()
-        {
-            List<string> nombresEnfermedades = new List<string>();
-            MySqlConnection conexion = null;
-
-            try
-            {
-                Conexion objetoConexion = new Conexion();
-                conexion = objetoConexion.establecerConexion();
-
-                string query = "SELECT nombre FROM Enfermedades";
-                MySqlCommand command = new MySqlCommand(query, conexion);
-
-                MySqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    nombresEnfermedades.Add(reader["nombre"].ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al obtener nombres de enfermedades: " + ex.Message);
-            }
-            finally
-            {
-                if (conexion != null)
-                {
-                    conexion.Close();
-                }
-            }
-
-            return nombresEnfermedades;
-        }
-
         internal void modificarEnfermedad(int id, string text1, string text2, string text3)
         {
             throw new NotImplementedException();
+        }
+
+        public List<string> ObtenerNombreEnfermedades()
+        {
+            List<string> nombresEnfermedades = new List<string>();
+            using (MySqlConnection conexion = new Conexion().establecerConexion())
+            {
+                try
+                {
+                    string query = "SELECT nombre FROM Enfermedades";
+                    MySqlCommand command = new MySqlCommand(query, conexion);
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        nombresEnfermedades.Add(reader["nombre"].ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al obtener nombres de enfermedades: " + ex.Message);
+                }
+            }
+            return nombresEnfermedades;
         }
     }
 }

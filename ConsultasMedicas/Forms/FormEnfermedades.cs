@@ -28,6 +28,8 @@ namespace ConsultasMedicas.Forms
             dataGridEnfermedad.BorderStyle = BorderStyle.FixedSingle;
             dataGridEnfermedad.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ActualizarConteoRegistros();
+            ConfigurarAutocompletado(textBox1);
+
         }
         private void ActualizarConteoRegistros()
         {
@@ -64,11 +66,7 @@ namespace ConsultasMedicas.Forms
             ActualizarConteoRegistros();
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            FormEditarEnfermedad formEditar = new FormEditarEnfermedad();
-            formEditar.ShowDialog();
-        }
+      
   
         private void button6_Click(object sender, EventArgs e)
         {
@@ -98,6 +96,34 @@ namespace ConsultasMedicas.Forms
 
                 formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
             }
+        }
+        public void ConfigurarAutocompletado(TextBox textBox)
+        {
+            try
+            {
+                // Crear una instancia de Cenfermedad
+                Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
+
+                // Obtener los nombres de enfermedades
+                List<string> nombresEnfermedades = objetoEnfermedad.ObtenerNombreEnfermedades();
+
+                // Crear la colección para el autocompletado
+                AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
+                autoCompleteCollection.AddRange(nombresEnfermedades.ToArray());
+
+                // Configurar el autocompletado en el TextBox
+                textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                textBox.AutoCompleteCustomSource = autoCompleteCollection;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
+            }
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

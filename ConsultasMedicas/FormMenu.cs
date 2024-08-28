@@ -37,6 +37,7 @@ namespace ConsultasMedicas
             label2.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
             label3.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
             label4.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
+            label5.Font = new Font(Font.FontFamily, 12, FontStyle.Bold);
             button1.BackColor = Color.FromArgb(35, 40, 45);
             button1.Font = new Font(Font.FontFamily, 12);
             button1.ForeColor = Color.White;

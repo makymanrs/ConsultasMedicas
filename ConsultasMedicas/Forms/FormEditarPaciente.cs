@@ -41,7 +41,7 @@ namespace ConsultasMedicas.Forms
             else
             {
                 // Manejar la fecha inválida, si es necesario
-                MessageBox.Show("Fecha de nacimiento no válida.");
+            //    MessageBox.Show("Fecha de nacimiento no válida.");
             }
 
             // Usar numericUpDown para edad, que es un número entero
@@ -52,7 +52,7 @@ namespace ConsultasMedicas.Forms
             else
             {
                 // Manejar edad inválida, si es necesario
-                MessageBox.Show("Edad no válida.");
+              //  MessageBox.Show("Edad no válida.");
             }
 
             textBox3.Text = direccion;

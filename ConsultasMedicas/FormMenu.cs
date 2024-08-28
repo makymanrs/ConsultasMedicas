@@ -59,7 +59,7 @@ namespace ConsultasMedicas
         private void FormMenu_Load(object sender, EventArgs e)
         {
             label1.Text = $"Bienvenido, {usuario}";
-            CenterPanel2(panel3);
+           // CenterPanel2(panel3);
         }
         // resuelve el problema del form login que seguia en ejecucicion aqui lo cierra completamente al detectar que el form se cierre
         private void FormMenu_FormClosed(object sender, FormClosedEventArgs e)
@@ -73,15 +73,16 @@ namespace ConsultasMedicas
             {
                 Region = null; // Restablece la región a null al maximizar
                 //PlacePanelTopLeft(panel3);
-                CenterPanel(panel3);
+              //  CenterPanel(panel3);
 
             }
             else if (WindowState == FormWindowState.Normal)
             {
                 Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20)); // Aplica la región redondeada al volver estado normal
-                CenterPanel2(panel3);
+                //CenterPanel2(panel3);
             }
         }
+        /*
         private void CenterPanel(Panel panel)
         {
             // Calcula las coordenadas X e Y para centrar el panel en el formulario
@@ -98,6 +99,7 @@ namespace ConsultasMedicas
             // Establece la ubicación del panel
             panel.Location = new Point(x, y);
         }
+        /*
         /*
         private void PlacePanelTopLeft(Panel panel)
         {
@@ -150,34 +152,47 @@ namespace ConsultasMedicas
             }
         }
         //cambiar de forms con los picturebox
-        private void pictureBox2_Click(object sender, EventArgs e)
+
+        private void pictureBox2_Click_1(object sender, EventArgs e)
         {
             ChangeTab(1);
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            ChangeTab(2);
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            ChangeTab(3);
-        }
-        //cambiar de forms con los labels
-        private void label2_Click(object sender, EventArgs e)
+        private void label2_Click_1(object sender, EventArgs e)
         {
             ChangeTab(1);
+
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void pictureBox3_Click_1(object sender, EventArgs e)
         {
             ChangeTab(2);
+
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+            ChangeTab(2);
+
+        }
+
+        private void pictureBox4_Click_1(object sender, EventArgs e)
         {
             ChangeTab(3);
+
+        }
+
+        private void label4_Click_1(object sender, EventArgs e)
+        {
+            ChangeTab(3);
+        }
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            ChangeTab(4);
+        }
+        private void label5_Click(object sender, EventArgs e)
+        {
+            ChangeTab(4);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -198,5 +213,7 @@ namespace ConsultasMedicas
             labelhr.Text = DateTime.Now.ToString("h:mm:ss");
             labelfch.Text = DateTime.Now.ToLongDateString();
         }
+
+        
     }
 }

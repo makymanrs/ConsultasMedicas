@@ -50,26 +50,37 @@ namespace ConsultasMedicas.Forms
             {
                 // Obtener los datos de la fila seleccionada
                 int idPaciente = Convert.ToInt32(dataGridPaciente.SelectedRows[0].Cells["ID"].Value);
-                string nombreCompleto = dataGridPaciente.SelectedRows[0].Cells["Nombre Completo"].Value.ToString();
-                string identidad = dataGridPaciente.SelectedRows[0].Cells["Identidad"].Value.ToString();
-                string fechaNacimiento = dataGridPaciente.SelectedRows[0].Cells["Fecha de Nacimiento"].Value.ToString();
-                string edad = dataGridPaciente.SelectedRows[0].Cells["Edad"].Value.ToString();
-                string direccion = dataGridPaciente.SelectedRows[0].Cells["Direccion"].Value.ToString();
-                string telefono = dataGridPaciente.SelectedRows[0].Cells["Telefono"].Value.ToString();
+                string nombreCompleto = dataGridPaciente.SelectedRows[0].Cells["Nombre Completo"].Value?.ToString() ?? string.Empty;
+                string identidad = dataGridPaciente.SelectedRows[0].Cells["Identidad"].Value?.ToString() ?? string.Empty;
+                string fechaNacimiento = dataGridPaciente.SelectedRows[0].Cells["Fecha de Nacimiento"].Value?.ToString() ?? string.Empty;
+                string edad = dataGridPaciente.SelectedRows[0].Cells["Edad"].Value?.ToString() ?? string.Empty;
+                string direccion = dataGridPaciente.SelectedRows[0].Cells["Direccion"].Value?.ToString() ?? string.Empty;
+                string telefono = dataGridPaciente.SelectedRows[0].Cells["Telefono"].Value?.ToString() ?? string.Empty;
 
-                // Dividir nombre completo en nombre y apellido
-                string[] nombrePartes = nombreCompleto.Split(' ', (char)2); // Divide en el primer espacio
+                // Verificar si el nombre completo es nulo o vacío
+                if (!string.IsNullOrWhiteSpace(nombreCompleto))
+                {
+                    // Asumimos que "Nombre Completo" es la concatenación de "pac_nombre" y "pac_apellido"
+                    string[] partesNombreCompleto = nombreCompleto.Split(' ');
 
-                string nombre = nombrePartes.Length > 0 ? nombrePartes[0] : string.Empty;
-                string apellido = nombrePartes.Length > 1 ? nombrePartes[1] : string.Empty;
+                    // Suponiendo que el primer y segundo nombres son los primeros dos elementos
+                    string nombre = string.Join(" ", partesNombreCompleto.Take(2));
 
-                // Crear el formulario de edición con los datos obtenidos
-                FormEditarPaciente formEditar = new FormEditarPaciente(idPaciente, nombre, apellido, identidad, fechaNacimiento, edad, direccion, telefono);
-                formEditar.PacienteModificado += FormModificar_PacienteModificado; // Suscríbete al evento de modificación
-                formEditar.ShowDialog();
+                    // Los demás elementos después de los dos primeros se consideran como apellidos
+                    string apellido = string.Join(" ", partesNombreCompleto.Skip(2));
 
-                // Opcional: refrescar el DataGridView después de editar
-                // button2_Click(sender, e); // Asumiendo que button2_Click refresca el DataGridView
+                    // Crear el formulario de edición con los datos obtenidos
+                    FormEditarPaciente formEditar = new FormEditarPaciente(idPaciente, nombre, apellido, identidad, fechaNacimiento, edad, direccion, telefono);
+                    formEditar.PacienteModificado += FormModificar_PacienteModificado; // Suscríbete al evento de modificación
+                    formEditar.ShowDialog();
+                }
+                else
+                {
+                    // Si "Nombre Completo" está vacío, abrir el formulario con campos vacíos
+                    FormEditarPaciente formEditar = new FormEditarPaciente(idPaciente, string.Empty, string.Empty, identidad, fechaNacimiento, edad, direccion, telefono);
+                    formEditar.PacienteModificado += FormModificar_PacienteModificado; // Suscríbete al evento de modificación
+                    formEditar.ShowDialog();
+                }
             }
             else
             {

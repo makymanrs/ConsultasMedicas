@@ -332,11 +332,10 @@ namespace ConsultasMedicas.Forms
                 // Abre el formulario FormDetalles
                 FormObservaciones formDetalles = new FormObservaciones();
 
-                // Opcionalmente, puedes pasarle información al nuevo formulario
                 formDetalles.SomeProperty = cellValue?.ToString();
                 formDetalles.LabelText = "Descripción";
 
-                formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
+                formDetalles.ShowDialog(); 
             }
 
 

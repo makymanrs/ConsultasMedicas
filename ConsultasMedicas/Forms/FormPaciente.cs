@@ -24,7 +24,7 @@ namespace ConsultasMedicas.Forms
             dataGridPaciente.RowTemplate.Height = 60;
             dataGridPaciente.ReadOnly = true;
             ActualizarConteoRegistros();
-
+            ConfigurarAutocompletado(textBox1);
         }
         public void listas()
         {
@@ -54,8 +54,8 @@ namespace ConsultasMedicas.Forms
                 string identidad = dataGridPaciente.SelectedRows[0].Cells["Identidad"].Value?.ToString() ?? string.Empty;
                 string fechaNacimiento = dataGridPaciente.SelectedRows[0].Cells["Fecha de Nacimiento"].Value?.ToString() ?? string.Empty;
                 string edad = dataGridPaciente.SelectedRows[0].Cells["Edad"].Value?.ToString() ?? string.Empty;
-                string direccion = dataGridPaciente.SelectedRows[0].Cells["Direccion"].Value?.ToString() ?? string.Empty;
-                string telefono = dataGridPaciente.SelectedRows[0].Cells["Telefono"].Value?.ToString() ?? string.Empty;
+                string direccion = dataGridPaciente.SelectedRows[0].Cells["Dirección"].Value?.ToString() ?? string.Empty;
+                string telefono = dataGridPaciente.SelectedRows[0].Cells["Teléfono"].Value?.ToString() ?? string.Empty;
 
                 // Verificar si el nombre completo es nulo o vacío
                 if (!string.IsNullOrWhiteSpace(nombreCompleto))
@@ -165,6 +165,29 @@ namespace ConsultasMedicas.Forms
                         cell.Style.ForeColor = Color.Black;
                     }
                 }
+            }
+        }
+        public void ConfigurarAutocompletado(TextBox textBox)
+        {
+            try
+            {
+                Mysql.Cpacientes objetoPacientes = new Mysql.Cpacientes();
+
+                // Obtener los nombres de enfermedades
+                List<string> nombrespacientes = objetoPacientes.ObtenerNombrePacientes();
+
+                // Crear la colección para el autocompletado
+                AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
+                autoCompleteCollection.AddRange(nombrespacientes.ToArray());
+
+                // Configurar el autocompletado en el TextBox
+                textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                textBox.AutoCompleteCustomSource = autoCompleteCollection;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
             }
         }
     }

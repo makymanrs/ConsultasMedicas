@@ -23,7 +23,7 @@ namespace ConsultasMedicas.Mysql
                                "pac_identidad as 'Identidad', "+
                                "pac_fecha_nacimiento as 'Fecha de Nacimiento', " +
                                "pac_edad as 'Edad', " +
-                               "pac_direccion as 'Direccion', pac_telefono as 'Telefono' " +
+                               "pac_direccion as 'Dirección', pac_telefono as 'Teléfono' " +
                                "FROM paciente";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, conexion);
                 DataTable dt = new DataTable();
@@ -311,6 +311,30 @@ namespace ConsultasMedicas.Mysql
             {
                 MessageBox.Show("No se logró seleccionar, error: " + ex.ToString());
             }
+        }
+        public List<string> ObtenerNombrePacientes()
+        {
+            List<string> nombresPacientes = new List<string>();
+            using (MySqlConnection conexion = new Conexion().establecerConexion())
+            {
+                try
+                {
+                    // Consulta SQL para concatenar pac_nombre y pac_apellido
+                    string query = "SELECT CONCAT(pac_nombre, ' ', pac_apellido) AS NombreCompleto FROM paciente";
+                    MySqlCommand command = new MySqlCommand(query, conexion);
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        // Agregar el nombre completo a la lista
+                        nombresPacientes.Add(reader["NombreCompleto"].ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al obtener nombres de pacientes: " + ex.Message);
+                }
+            }
+            return nombresPacientes;
         }
 
     }

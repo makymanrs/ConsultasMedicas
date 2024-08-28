@@ -64,6 +64,11 @@ namespace ConsultasMedicas.Forms
         {
             set { richTextBox1.Text = value; } // Asume que el RichTextBox se llama richTextBoxInfo
         }
+        public string LabelText
+        {
+            get { return label1.Text; }
+            set { label1.Text = value; }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {

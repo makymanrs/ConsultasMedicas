@@ -303,6 +303,43 @@ namespace ConsultasMedicas.Forms
                     this.Close();
                 }
             }
+
+            // Verifica que no se haya hecho clic en el encabezado de columna o fuera del rango de celdas
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            // Verifica si se ha hecho clic en la última celda de la fila
+            if (e.ColumnIndex == dataGridDetalleEnfermedad.Columns.Count - 1)  // Última celda de la fila
+            {
+                // Obtén el valor de la celda
+                var cellValue = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                // Abre el formulario FormDetalles
+                FormObservaciones formDetalles = new FormObservaciones();
+
+                // Opcionalmente, puedes pasarle información al nuevo formulario
+                formDetalles.SomeProperty = cellValue?.ToString();
+                formDetalles.LabelText = "Síntomas";
+
+                formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
+            }
+
+            if (e.ColumnIndex == dataGridDetalleEnfermedad.Columns.Count - 2)  // Última celda de la fila
+            {
+                // Obtén el valor de la celda
+                var cellValue = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+
+                // Abre el formulario FormDetalles
+                FormObservaciones formDetalles = new FormObservaciones();
+
+                // Opcionalmente, puedes pasarle información al nuevo formulario
+                formDetalles.SomeProperty = cellValue?.ToString();
+                formDetalles.LabelText = "Descripción";
+
+                formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
+            }
+
+
         }
 
         private void button5_Click(object sender, EventArgs e)

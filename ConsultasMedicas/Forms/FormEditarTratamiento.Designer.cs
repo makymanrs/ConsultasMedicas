@@ -36,7 +36,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -118,23 +117,6 @@
             this.label3.TabIndex = 122;
             this.label3.Text = "Medicamento";
             // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(103)))), ((int)(((byte)(229)))));
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Image = global::ConsultasMedicas.Properties.Resources.viñetas;
-            this.button5.Location = new System.Drawing.Point(154, 74);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(92, 34);
-            this.button5.TabIndex = 130;
-            this.button5.Text = "Viñetas";
-            this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::ConsultasMedicas.Properties.Resources.editar_informacion;
@@ -197,7 +179,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox5);
@@ -218,8 +199,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox5;

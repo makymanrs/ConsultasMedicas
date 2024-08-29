@@ -58,23 +58,7 @@ namespace ConsultasMedicas.Forms
             dataGridTratamiento.Columns.Add("observaciones", "Observaciones");
             
         }
-        /*
-        private string ConvertirViñetasARichTextBox(RichTextBox richTextBox)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (string line in richTextBox.Lines)
-            {
-                if (!string.IsNullOrWhiteSpace(line))
-                {
-                    // Añadir un símbolo para simular la viñeta, por ejemplo, un guion
-                    sb.AppendLine("• " + line);
-                }
-            }
-            return sb.ToString().Trim();
-        }
-        */
-
-        // para agregar los campos al datagridview
+      
         private void button2_Click(object sender, EventArgs e)
         {
             // Obtener los valores de los controles
@@ -83,6 +67,7 @@ namespace ConsultasMedicas.Forms
             string duracion = textBox5.Text.Trim();
 
             // Convertir las viñetas del RichTextBox en un formato de lista de texto
+          //string observaciones = ObtenerLineasConViñetas(richTextBox1);
             string observaciones = richTextBox1.Text.Trim();
 
             // Verificar si alguno de los campos está vacío
@@ -164,10 +149,7 @@ namespace ConsultasMedicas.Forms
             };
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            richTextBox1.SelectionBullet = true;
-        }
+        
 
         private void button6_Click(object sender, EventArgs e)
         {

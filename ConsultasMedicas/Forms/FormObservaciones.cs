@@ -18,7 +18,7 @@ namespace ConsultasMedicas.Forms
         {
             InitializeComponent();
             this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20)); // aqui se establece como sera la esquina redondeada
-            JustificarRichTextBox(richTextBox1);
+            AplicarJustificacion(richTextBox1);
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -92,30 +92,64 @@ namespace ConsultasMedicas.Forms
             button1.BackColor = Color.FromArgb(33, 33, 33);
 
         }
-        private void JustificarRichTextBox(RichTextBox rtb)
+        private string JustificarTexto(string texto, int anchoLinea)
         {
-            // Verifica si hay texto en el RichTextBox
-            if (rtb.TextLength > 0)
+            var lineas = texto.Split(new[] { '\n' }, StringSplitOptions.None);
+            var textoJustificado = new StringBuilder();
+
+            foreach (var linea in lineas)
             {
-                // Guarda la posición actual del cursor
-                int originalSelectionStart = rtb.SelectionStart;
-                int originalSelectionLength = rtb.SelectionLength;
+                var palabras = linea.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (palabras.Length == 0)
+                {
+                    textoJustificado.AppendLine();
+                    continue;
+                }
 
-                // Selecciona todo el texto
-                rtb.SelectAll();
+                var anchoTexto = linea.Length;
+                var espaciosNecesarios = anchoLinea - anchoTexto;
 
-                // Obtén el contenido RTF actual
-                string rtf = rtb.Rtf;
+                if (espaciosNecesarios > 0)
+                {
+                    var espaciosEntrePalabras = palabras.Length - 1;
+                    if (espaciosEntrePalabras > 0)
+                    {
+                        var espacioExtra = espaciosNecesarios % espaciosEntrePalabras;
+                        var espacioBase = espaciosNecesarios / espaciosEntrePalabras;
+                        for (var i = 0; i < palabras.Length - 1; i++)
+                        {
+                            textoJustificado.Append(palabras[i]);
+                            textoJustificado.Append(new string(' ', espacioBase));
+                            if (i < espacioExtra)
+                            {
+                                textoJustificado.Append(' ');
+                            }
+                        }
+                        textoJustificado.Append(palabras[palabras.Length - 1]); // Acceder al último elemento con índice clásico
+                    }
+                    else
+                    {
+                        textoJustificado.Append(linea);
+                    }
+                }
+                else
+                {
+                    textoJustificado.Append(linea);
+                }
 
-                // Reemplaza la alineación actual con la justificación (\qj)
-                rtf = rtf.Replace(@"\pard", @"\pard\qj");
-
-                // Aplica el RTF modificado al RichTextBox
-                rtb.Rtf = rtf;
-
-                // Restaura la posición del cursor
-                rtb.Select(originalSelectionStart, originalSelectionLength);
+                textoJustificado.AppendLine();
             }
+
+            return textoJustificado.ToString();
+        }
+
+        private void AplicarJustificacion(RichTextBox richTextBox)
+        {
+            var textoOriginal = richTextBox.Text;
+            var anchoLinea = richTextBox.ClientSize.Width; // Ajustar según el tamaño del RichTextBox
+
+            var textoJustificado = JustificarTexto(textoOriginal, anchoLinea);
+            richTextBox.Text = textoJustificado;
         }
     }
 }

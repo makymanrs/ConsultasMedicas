@@ -94,11 +94,6 @@ namespace ConsultasMedicas.Forms
             this.Close(); // Cerrar el formulario después de guardar los cambios
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            richTextBox1.SelectionBullet = true;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();

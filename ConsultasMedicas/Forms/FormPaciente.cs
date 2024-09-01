@@ -42,6 +42,8 @@ namespace ConsultasMedicas.Forms
             FormInsertarPaciente formInsertar = new FormInsertarPaciente();
             formInsertar.RegistroGuardado += FormInsertar_RegistroGuardado; // Suscríbete al evento
             formInsertar.ShowDialog(); // Mostrar el formulario de inserción
+            ConfigurarAutocompletado(textBox1);
+
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -86,6 +88,7 @@ namespace ConsultasMedicas.Forms
             {
                 MessageBox.Show("Por favor, seleccione una fila para editar.");
             }
+            ConfigurarAutocompletado(textBox1);
         }
 
         private void button3_Click(object sender, EventArgs e)

@@ -45,6 +45,7 @@ namespace ConsultasMedicas.Forms
             this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
 
             objetoTratamiento = new Mysql.Ctratamiento();
+            textBox3.Focus();
 
         }
         protected override void OnPaint(PaintEventArgs e)
@@ -116,6 +117,31 @@ namespace ConsultasMedicas.Forms
 
         }
 
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                textBox4.Focus();
+            }
+        }
 
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                textBox5.Focus();
+            }
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                richTextBox1.Focus();
+            }
+        }
     }
 }

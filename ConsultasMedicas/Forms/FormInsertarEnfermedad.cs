@@ -90,5 +90,23 @@ namespace ConsultasMedicas.Forms
         {
             button1.BackColor = Color.FromArgb(33, 33, 33);
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                richTextBox1.Focus();
+            }
+        }
+
+        private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                richTextBox2.Focus();
+            }
+        }
     }
 }

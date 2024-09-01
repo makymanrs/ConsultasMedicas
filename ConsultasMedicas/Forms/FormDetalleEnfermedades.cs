@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -22,6 +23,7 @@ namespace ConsultasMedicas.Forms
             LoadData();
             // Configura el evento de redimensionamiento
             this.Resize += FormDetalleEnfermedades_Resize;
+            ConfigurarAutocompletado(textBox1);
         }
         public FormDetalleEnfermedades(FormVerTratamientos formVerTratamientos = null)
         {
@@ -33,6 +35,8 @@ namespace ConsultasMedicas.Forms
             LoadData();
             // Configura el evento de redimensionamiento
             this.Resize += FormDetalleEnfermedades_Resize;
+            ConfigurarAutocompletado(textBox1);
+
         }
 
         public FormDetalleEnfermedades(FormEnfermedades formEnfermedades)
@@ -48,6 +52,8 @@ namespace ConsultasMedicas.Forms
             LoadData();
             // Configura el evento de redimensionamiento
             this.Resize += FormDetalleEnfermedades_Resize;
+            ConfigurarAutocompletado(textBox1);
+
         }
 
         public void lista()
@@ -189,6 +195,7 @@ namespace ConsultasMedicas.Forms
             {
                 MessageBox.Show("Por favor, seleccione una fila para editar.");
             }
+            ConfigurarAutocompletado(textBox1);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -340,12 +347,34 @@ namespace ConsultasMedicas.Forms
 
 
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
             Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
             objetoEnfermedad.eliminarEnfermedad(dataGridDetalleEnfermedad);
             objetoEnfermedad.mostrarEnfermedades(dataGridDetalleEnfermedad);
+        }
+        public void ConfigurarAutocompletado(TextBox textBox)
+        {
+            try
+            {
+                Mysql.Cenfermedad objetoEnfermedades = new Mysql.Cenfermedad();
+
+                // Obtener los nombres de enfermedades
+                List<string> nombrespacientes = objetoEnfermedades.ObtenerNombreEnfermedades();
+
+                // Crear la colección para el autocompletado
+                AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
+                autoCompleteCollection.AddRange(nombrespacientes.ToArray());
+
+                // Configurar el autocompletado en el TextBox
+                textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                textBox.AutoCompleteCustomSource = autoCompleteCollection;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
+            }
         }
     }
 }

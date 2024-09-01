@@ -88,6 +88,7 @@ namespace ConsultasMedicas.Forms
             textBox4.Text = "";
             textBox5.Text = "";
             richTextBox1.Text = "";
+            textBox3.Focus();
         }
         // Quita los campos que estan en el datagridview
         private void button3_Click(object sender, EventArgs e)
@@ -148,13 +149,37 @@ namespace ConsultasMedicas.Forms
                 }
             };
         }
-
-        
-
         private void button6_Click(object sender, EventArgs e)
         {
             FormVerTratamientos mostrarForm = new FormVerTratamientos();
             mostrarForm.ShowDialog();
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                textBox4.Focus();
+            }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                textBox5.Focus();
+            }
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                richTextBox1.Focus();
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace ConsultasMedicas.Forms
         private FormVerTratamientos formVerTratamientos;
         private FormEnfermedades formEnfermedades;
         private FormHistorialMedico formHistorialMedico;
+        private FormEditarHistorialMedico formEditarHistorialMedico;
 
         public FormDetalleEnfermedades(FormTratamiento formTratamiento = null)
         {
@@ -44,6 +45,18 @@ namespace ConsultasMedicas.Forms
             InitializeComponent();
             // Establece la región redondeada inicial
             this.formHistorialMedico = formHistorialMedico;
+            ApplyRoundRectangleRegion();
+            // Carga los datos en el DataGridView
+            LoadData();
+            // Configura el evento de redimensionamiento
+            this.Resize += FormDetalleEnfermedades_Resize;
+            ConfigurarAutocompletado(textBox1);
+        }
+        public FormDetalleEnfermedades(FormEditarHistorialMedico formEditarHistorialMedico = null)
+        {
+            InitializeComponent();
+            // Establece la región redondeada inicial
+            this.formEditarHistorialMedico = formEditarHistorialMedico;
             ApplyRoundRectangleRegion();
             // Carga los datos en el DataGridView
             LoadData();
@@ -292,14 +305,26 @@ namespace ConsultasMedicas.Forms
 
         private void dataGridDetalleEnfermedad_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Verifica que no se haya hecho clic en el encabezado de columna o fuera del rango de celdas
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
             // Verificar que la fila seleccionada es válida
             if (e.RowIndex >= 0 && e.RowIndex < dataGridDetalleEnfermedad.Rows.Count)
             {
+                // Verificar si la fila seleccionada no es nula o no contiene datos vacíos
+                var row = dataGridDetalleEnfermedad.Rows[e.RowIndex];
+                if (row.Cells[0].Value == null || string.IsNullOrEmpty(row.Cells[0].Value.ToString()))
+                {
+                    MessageBox.Show("No hay ningún dato en esta fila", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Verificar si FormDetalleEnfermedades fue abierto desde FormTratamiento
                 if (formTratamiento != null)
                 {
                     // Obtener el código seleccionado
-                    string codigoSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string codigoSeleccionado = row.Cells[0].Value.ToString();
 
                     // Pasar el código seleccionado a FormTratamiento
                     formTratamiento.CodigoEnfermedad = codigoSeleccionado;
@@ -307,76 +332,75 @@ namespace ConsultasMedicas.Forms
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
-            }
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridDetalleEnfermedad.Rows.Count)
-            {
-                // Verificar si FormDetalleEnfermedades fue abierto desde FormTratamiento
+
+                // Verificar si FormDetalleEnfermedades fue abierto desde FormVerTratamientos
                 if (formVerTratamientos != null)
                 {
-                    // Obtener el código seleccionado
-               //     string codigoSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells["ID"].Value.ToString(); // Columna 0: Código
-                    string nombreSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(); // Columna 1: Nombre
+                    string nombreSeleccionado = row.Cells["Nombre"].Value.ToString();
 
                     // Pasar los valores a FormHistorialMedico
-                   // formHistorialMedico.CodigoEnfermedad = codigoSeleccionado;
                     formHistorialMedico.NombreEnfermedad = nombreSeleccionado;
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
-            }
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridDetalleEnfermedad.Rows.Count)
-            {
-                // Verificar si FormDetalleEnfermedades fue abierto desde FormTratamiento
+
+                // Verificar si FormDetalleEnfermedades fue abierto desde FormHistorialMedico
                 if (formHistorialMedico != null)
                 {
-                    // Obtener el código seleccionado
-                    string codigoSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[1].Value.ToString();
-                    string codigoenfermedad = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string codigoSeleccionado = row.Cells[1].Value.ToString();
+                    string codigoEnfermedad = row.Cells[0].Value.ToString();
 
-                    // Pasar el código seleccionado a FormTratamiento
+                    // Pasar el código seleccionado a FormHistorialMedico
                     formHistorialMedico.NombreEnfermedad = codigoSeleccionado;
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
+                if (formEditarHistorialMedico != null)
+                {
+                    string codigoSeleccionado = row.Cells[1].Value.ToString();
+                    string codigoEnfermedad = row.Cells[0].Value.ToString();
+
+                    // Pasar el código seleccionado a FormHistorialMedico
+                    formEditarHistorialMedico.NombreEnfermedad = codigoSeleccionado;
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+
+                // Verifica si se ha hecho clic en la última celda de la fila
+                if (e.ColumnIndex == dataGridDetalleEnfermedad.Columns.Count - 1)  // Última celda de la fila
+                {
+                    // Obtén el valor de la celda
+                    var cellValue = row.Cells[e.ColumnIndex].Value;
+
+                    // Abre el formulario FormDetalles
+                    FormObservaciones formDetalles = new FormObservaciones
+                    {
+                        SomeProperty = cellValue?.ToString(),
+                        LabelText = "Síntomas"
+                    };
+
+                    formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
+                }
+
+                // Verifica si se ha hecho clic en la penúltima celda de la fila
+                if (e.ColumnIndex == dataGridDetalleEnfermedad.Columns.Count - 2)  // Penúltima celda de la fila
+                {
+                    // Obtén el valor de la celda
+                    var cellValue = row.Cells[e.ColumnIndex].Value;
+
+                    // Abre el formulario FormDetalles
+                    FormObservaciones formDetalles = new FormObservaciones
+                    {
+                        SomeProperty = cellValue?.ToString(),
+                        LabelText = "Descripción"
+                    };
+
+                    formDetalles.ShowDialog();
+                }
             }
-
-            // Verifica que no se haya hecho clic en el encabezado de columna o fuera del rango de celdas
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
-                return;
-
-            // Verifica si se ha hecho clic en la última celda de la fila
-            if (e.ColumnIndex == dataGridDetalleEnfermedad.Columns.Count - 1)  // Última celda de la fila
-            {
-                // Obtén el valor de la celda
-                var cellValue = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-
-                // Abre el formulario FormDetalles
-                FormObservaciones formDetalles = new FormObservaciones();
-
-                // Opcionalmente, puedes pasarle información al nuevo formulario
-                formDetalles.SomeProperty = cellValue?.ToString();
-                formDetalles.LabelText = "Síntomas";
-
-                formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
-            }
-
-            if (e.ColumnIndex == dataGridDetalleEnfermedad.Columns.Count - 2)  // Última celda de la fila
-            {
-                // Obtén el valor de la celda
-                var cellValue = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-
-                // Abre el formulario FormDetalles
-                FormObservaciones formDetalles = new FormObservaciones();
-
-                formDetalles.SomeProperty = cellValue?.ToString();
-                formDetalles.LabelText = "Descripción";
-
-                formDetalles.ShowDialog(); 
-            }
-
-
         }
         private void button5_Click(object sender, EventArgs e)
         {

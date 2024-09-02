@@ -30,6 +30,9 @@ namespace ConsultasMedicas.Forms
 
             dataGridHistorialMedico.BorderStyle = BorderStyle.FixedSingle;
             dataGridHistorialMedico.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ConfigurarAutocompletado(textBox3);
+            ConfigurarAutocompletado2(textBox4);
+
         }
         public void lista()
         {
@@ -101,19 +104,93 @@ namespace ConsultasMedicas.Forms
             Mysql.Chistorialmedico objetoHistorial = new Mysql.Chistorialmedico();
             objetoHistorial.BuscarHistorialPorFiltros(dataGridHistorialMedico, textBox4,comboBox1,dateTimePicker2);
         }
-
-        private void tabPage2_Click(object sender, EventArgs e)
+        private void button7_Click_1(object sender, EventArgs e)
         {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            richTextBox1.Text = "";
+            richTextBox2.Text = "";
+            Mysql.Chistorialmedico objetoHistorialmedico = new Mysql.Chistorialmedico();
+            objetoHistorialmedico.mostrarHistorialMedico(dataGridHistorialMedico);
+        }
+        public void ConfigurarAutocompletado(TextBox textBox)
+        {
+            try
+            {
+                // Crear una instancia de Cenfermedad
+                Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
+
+                // Obtener los nombres de enfermedades
+                List<string> nombresEnfermedades = objetoEnfermedad.ObtenerNombreEnfermedades();
+
+                // Crear la colección para el autocompletado
+                AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
+                autoCompleteCollection.AddRange(nombresEnfermedades.ToArray());
+
+                // Configurar el autocompletado en el TextBox
+                textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                textBox.AutoCompleteCustomSource = autoCompleteCollection;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
+            }
+        }
+        public void ConfigurarAutocompletado2(TextBox textBox)
+        {
+            try
+            {
+                Mysql.Cpacientes objetoPacientes = new Mysql.Cpacientes();
+
+                // Obtener los nombres de enfermedades
+                List<string> nombrespacientes = objetoPacientes.ObtenerNombrePacientes();
+
+                // Crear la colección para el autocompletado
+                AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();
+                autoCompleteCollection.AddRange(nombrespacientes.ToArray());
+
+                // Configurar el autocompletado en el TextBox
+                textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                textBox.AutoCompleteCustomSource = autoCompleteCollection;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
+            }
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button8_Click(object sender, EventArgs e)
         {
-            
-        }
+            if (dataGridHistorialMedico.SelectedRows.Count > 0) // Verificar si hay una fila seleccionada
+            {
+                // Obtener los datos de la fila seleccionada
+                int idHistorial = Convert.ToInt32(dataGridHistorialMedico.SelectedRows[0].Cells["ID Historial"].Value);
+                string nombrePaciente = dataGridHistorialMedico.SelectedRows[0].Cells["Nombre del Paciente"].Value?.ToString() ?? string.Empty;
+                DateTime fechaConsulta = Convert.ToDateTime(dataGridHistorialMedico.SelectedRows[0].Cells["Fecha de Consulta"].Value);
+                string nombreEnfermedad = dataGridHistorialMedico.SelectedRows[0].Cells["Nombre de la Enfermedad"].Value?.ToString() ?? string.Empty;
+                string diagnostico = dataGridHistorialMedico.SelectedRows[0].Cells["Diagnóstico"].Value?.ToString() ?? string.Empty;
+                string tratamiento = dataGridHistorialMedico.SelectedRows[0].Cells["Tratamiento"].Value?.ToString() ?? string.Empty;
 
-        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
-        {
+                // Crear el formulario de edición con los datos obtenidos
+                FormEditarHistorialMedico formEditarHistorial = new FormEditarHistorialMedico(idHistorial, nombrePaciente, fechaConsulta, nombreEnfermedad, diagnostico, tratamiento);
 
+                formEditarHistorial.OnDataUpdated += () =>
+                {
+                    // Actualiza los datos después de editar
+                    LoadData();
+                };
+                formEditarHistorial.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione una fila para editar.");
+            }
+
+            // Configurar autocompletado después de editar
+            ConfigurarAutocompletado(textBox1);
         }
     }
 }

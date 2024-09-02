@@ -15,6 +15,7 @@ namespace ConsultasMedicas.Forms
     public partial class FormVerTratamientos : Form
     {
         private FormHistorialMedico formHistorialmedico;
+        private FormEditarHistorialMedico formEditarHistorialMedico;
         public FormVerTratamientos()
         {
             InitializeComponent();
@@ -33,6 +34,16 @@ namespace ConsultasMedicas.Forms
             Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
             objetoEnfermedad.mostrarTratamientosPorEnfermedad(dataGridTratamiento);
             this.formHistorialmedico = formHistorialmedico; 
+        }
+        public FormVerTratamientos(FormEditarHistorialMedico formEditarHistorialMedico = null, string nombreEnfermedad = "")
+        {
+            InitializeComponent();
+            ConfigurarDataGridView();
+            textBox1.Text = nombreEnfermedad;
+            this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+            Mysql.Cenfermedad objetoEnfermedad = new Mysql.Cenfermedad();
+            objetoEnfermedad.mostrarTratamientosPorEnfermedad(dataGridTratamiento);
+            this.formEditarHistorialMedico = formEditarHistorialMedico;
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -190,6 +201,38 @@ namespace ConsultasMedicas.Forms
                     else
                     {
                         formHistorialmedico.trataminetos = sb.ToString();
+                    }
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                if (formEditarHistorialMedico != null)
+                {
+                    // Crear un StringBuilder para concatenar las observaciones
+                    StringBuilder sb = new StringBuilder();
+
+                    // Iterar sobre todas las filas seleccionadas
+                    foreach (DataGridViewRow row in dataGridTratamiento.SelectedRows)
+                    {
+                        // Obtener la observación de la fila seleccionada
+                        string observaciones = row.Cells["medicamento"].Value.ToString();
+
+                        // Concatenar la observación con el símbolo y un salto de línea
+                        sb.AppendLine($"• {observaciones}");
+                    }
+
+                    // Obtener el contenido actual del RichTextBox
+                    string contenidoActual = formEditarHistorialMedico.trataminetos;
+
+                    // Añadir las nuevas observaciones al contenido actual
+                    if (!string.IsNullOrEmpty(contenidoActual))
+                    {
+                        // Añadir una sola línea de separación entre el contenido actual y el nuevo contenido
+                        formEditarHistorialMedico.trataminetos = contenidoActual.TrimEnd() + Environment.NewLine + sb.ToString();
+                    }
+                    else
+                    {
+                        formEditarHistorialMedico.trataminetos = sb.ToString();
                     }
 
                     this.DialogResult = DialogResult.OK;

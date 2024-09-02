@@ -275,12 +275,26 @@ namespace ConsultasMedicas.Forms
 
         private void dataGridPaciente_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Verifica que no se haya hecho clic en el encabezado de columna o fuera del rango de celdas
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            // Verificar que la fila seleccionada es válida
             if (e.RowIndex >= 0 && e.RowIndex < dataGridPaciente.Rows.Count)
             {
+                var row = dataGridPaciente.Rows[e.RowIndex];
+
+                // Verificar si el valor de la celda es nulo o vacío
+                if (row.Cells["ID"].Value == null || string.IsNullOrEmpty(row.Cells["ID"].Value.ToString()))
+                {
+                    MessageBox.Show("No hay ningún dato en esta fila", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (formhistorialmedico != null)
                 {
                     // Obtener el código seleccionado
-                    string codigoSeleccionado = dataGridPaciente.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+                    string codigoSeleccionado = row.Cells["ID"].Value.ToString();
 
                     // Pasar el código seleccionado a FormHistorialMedico
                     formhistorialmedico.CodigoPaciente = codigoSeleccionado;

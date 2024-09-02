@@ -94,57 +94,37 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
-        public void guardarHistorialMedico(TextBox idPaciente, TextBox pacNombre, TextBox enfermedadNombre, DateTimePicker fechaConsulta, RichTextBox diagnostico, RichTextBox tratamiento)
+        public DataRow buscarHistorialMedico(int idHistorial)
         {
-            // Obtener el ID del paciente desde el TextBox
-            int pacId;
-
-            if (!int.TryParse(idPaciente.Text, out pacId))
-            {
-                MessageBox.Show("ID del paciente inválido.");
-                return;
-            }
-
-            // Validar que el nombre del paciente no esté vacío
-            if (string.IsNullOrWhiteSpace(pacNombre.Text))
-            {
-                MessageBox.Show("El nombre del paciente no puede estar vacío.");
-                return;
-            }
-
-            // Validar que el nombre de la enfermedad no esté vacío
-            if (string.IsNullOrWhiteSpace(enfermedadNombre.Text))
-            {
-                MessageBox.Show("El nombre de la enfermedad no puede estar vacío.");
-                return;
-            }
-
             MySqlConnection conexion = null;
             try
             {
                 Conexion objetoConexion = new Conexion();
                 conexion = objetoConexion.establecerConexion();
 
-                // Insertar en la tabla HistorialMedico
-                string query = "INSERT INTO HistorialMedico(pac_id, pac_nombre, fecha_consulta, enfermedad_nombre, diagnostico, tratamiento) " +
-                               "VALUES (@pacId, @pacNombre, @fechaConsulta, @enfermedadNombre, @diagnostico, @tratamiento)";
+                // Consulta SQL ajustada a la tabla HistorialMedico
+                string query = "SELECT id_historial, pac_id, pac_nombre, fecha_consulta, enfermedad_nombre, diagnostico, tratamiento " +
+                               "FROM HistorialMedico WHERE id_historial = @idHistorial";
+                MySqlCommand command = new MySqlCommand(query, conexion);
+                command.Parameters.AddWithValue("@idHistorial", idHistorial);
 
-                using (MySqlCommand myCommandHistorial = new MySqlCommand(query, conexion))
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                if (dt.Rows.Count > 0)
                 {
-                    myCommandHistorial.Parameters.AddWithValue("@pacId", pacId);
-                    myCommandHistorial.Parameters.AddWithValue("@pacNombre", pacNombre.Text);
-                    myCommandHistorial.Parameters.AddWithValue("@fechaConsulta", fechaConsulta.Value.ToString("yyyy-MM-dd"));
-                    myCommandHistorial.Parameters.AddWithValue("@enfermedadNombre", enfermedadNombre.Text);
-                    myCommandHistorial.Parameters.AddWithValue("@diagnostico", diagnostico.Text);
-                    myCommandHistorial.Parameters.AddWithValue("@tratamiento", tratamiento.Text);
-
-                    myCommandHistorial.ExecuteNonQuery();
-                    MessageBox.Show("Se guardó el historial médico");
+                    return dt.Rows[0]; // Devuelve la primera fila encontrada
+                }
+                else
+                {
+                    return null; // No se encontraron resultados
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo guardar el historial médico: " + ex.Message);
+                MessageBox.Show("Error al buscar historial médico: " + ex.Message);
+                return null;
             }
             finally
             {
@@ -220,6 +200,100 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
+        public void guardarHistorialMedico(TextBox idPaciente, TextBox pacNombre, TextBox enfermedadNombre, DateTimePicker fechaConsulta, RichTextBox diagnostico, RichTextBox tratamiento)
+        {
+            // Obtener el ID del paciente desde el TextBox
+            int pacId;
+
+            if (!int.TryParse(idPaciente.Text, out pacId))
+            {
+                MessageBox.Show("ID del paciente inválido.");
+                return;
+            }
+
+            // Validar que el nombre del paciente no esté vacío
+            if (string.IsNullOrWhiteSpace(pacNombre.Text))
+            {
+                MessageBox.Show("El nombre del paciente no puede estar vacío.");
+                return;
+            }
+
+            // Validar que el nombre de la enfermedad no esté vacío
+            if (string.IsNullOrWhiteSpace(enfermedadNombre.Text))
+            {
+                MessageBox.Show("El nombre de la enfermedad no puede estar vacío.");
+                return;
+            }
+
+            MySqlConnection conexion = null;
+            try
+            {
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
+
+                // Insertar en la tabla HistorialMedico
+                string query = "INSERT INTO HistorialMedico(pac_id, pac_nombre, fecha_consulta, enfermedad_nombre, diagnostico, tratamiento) " +
+                               "VALUES (@pacId, @pacNombre, @fechaConsulta, @enfermedadNombre, @diagnostico, @tratamiento)";
+
+                using (MySqlCommand myCommandHistorial = new MySqlCommand(query, conexion))
+                {
+                    myCommandHistorial.Parameters.AddWithValue("@pacId", pacId);
+                    myCommandHistorial.Parameters.AddWithValue("@pacNombre", pacNombre.Text);
+                    myCommandHistorial.Parameters.AddWithValue("@fechaConsulta", fechaConsulta.Value.ToString("yyyy-MM-dd"));
+                    myCommandHistorial.Parameters.AddWithValue("@enfermedadNombre", enfermedadNombre.Text);
+                    myCommandHistorial.Parameters.AddWithValue("@diagnostico", diagnostico.Text);
+                    myCommandHistorial.Parameters.AddWithValue("@tratamiento", tratamiento.Text);
+
+                    myCommandHistorial.ExecuteNonQuery();
+                    MessageBox.Show("Se guardó el historial médico");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo guardar el historial médico: " + ex.Message);
+            }
+            finally
+            {
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+        public void modificarHistorialMedico(TextBox codHistorial, TextBox nombrePaciente, DateTimePicker fechaConsulta, TextBox nombreEnfermedad, RichTextBox diagnostico, RichTextBox tratamiento)
+        {
+            MySqlConnection conexion = null;
+            try
+            {
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
+
+                string query = "UPDATE HistorialMedico SET pac_nombre=@pacnombre, fecha_consulta=@fechaconsulta, enfermedad_nombre=@enfermedadnombre, diagnostico=@diagnostico, tratamiento=@tratamiento WHERE id_historial = @idhistorial";
+                MySqlCommand command = new MySqlCommand(query, conexion);
+                command.Parameters.AddWithValue("@idhistorial", codHistorial.Text);
+                command.Parameters.AddWithValue("@pacnombre", nombrePaciente.Text);
+                command.Parameters.AddWithValue("@fechaconsulta", fechaConsulta.Value.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@enfermedadnombre", nombreEnfermedad.Text);
+                command.Parameters.AddWithValue("@diagnostico", diagnostico.Text);
+                command.Parameters.AddWithValue("@tratamiento", tratamiento.Text);
+
+                command.ExecuteNonQuery();
+                MessageBox.Show("Se modificaron los registros correctamente");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo modificar el registro: " + ex.Message);
+            }
+            finally
+            {
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+
+
 
 
 

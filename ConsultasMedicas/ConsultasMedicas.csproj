@@ -64,6 +64,12 @@
     <Compile Include="Forms\FormEditarEnfermedad.Designer.cs">
       <DependentUpon>FormEditarEnfermedad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormEditarHistorialMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEditarHistorialMedico.Designer.cs">
+      <DependentUpon>FormEditarHistorialMedico.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormEditarPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEditarEnfermedad.resx">
       <DependentUpon>FormEditarEnfermedad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormEditarHistorialMedico.resx">
+      <DependentUpon>FormEditarHistorialMedico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEditarPaciente.resx">
       <DependentUpon>FormEditarPaciente.cs</DependentUpon>

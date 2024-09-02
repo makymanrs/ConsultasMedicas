@@ -78,23 +78,19 @@ namespace ConsultasMedicas.Forms
 
         private void dataGridEnfermedad_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Verifica que no se haya hecho clic en el encabezado de columna o fuera del rango de celdas
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
                 return;
 
-            // Verifica si se ha hecho clic en la última celda de la fila
-            if (e.ColumnIndex == dataGridEnfermedad.Columns.Count - 1)  // Última celda de la fila
+            if (e.ColumnIndex == dataGridEnfermedad.Columns.Count - 1)  
             {
-                // Obtén el valor de la celda
                 var cellValue = dataGridEnfermedad.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
 
                 // Abre el formulario FormDetalles
                 FormObservaciones formDetalles = new FormObservaciones();
 
-                // Opcionalmente, puedes pasarle información al nuevo formulario
                 formDetalles.SomeProperty = cellValue?.ToString();
 
-                formDetalles.ShowDialog(); // Mostrar como cuadro de diálogo modal
+                formDetalles.ShowDialog(); 
             }
         }
         public void ConfigurarAutocompletado(TextBox textBox)
@@ -121,9 +117,6 @@ namespace ConsultasMedicas.Forms
                 MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
             }
         }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

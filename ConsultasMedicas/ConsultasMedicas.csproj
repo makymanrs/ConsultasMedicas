@@ -131,6 +131,7 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Mysql\Cenfermedad.cs" />
+    <Compile Include="Mysql\Chistorialmedico.cs" />
     <Compile Include="Mysql\Conexion.cs" />
     <Compile Include="Mysql\Cpacientes.cs" />
     <Compile Include="Mysql\Ctratamiento.cs" />

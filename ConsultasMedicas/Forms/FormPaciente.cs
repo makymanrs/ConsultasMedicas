@@ -1,17 +1,22 @@
-﻿using System;
+﻿using Org.BouncyCastle.Pqc.Crypto.Lms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConsultasMedicas.Forms
 {
+
     public partial class FormPaciente : Form
     {
+        private FormHistorialMedico formhistorialmedico;
         public FormPaciente()
         {
             InitializeComponent();
@@ -25,7 +30,66 @@ namespace ConsultasMedicas.Forms
             dataGridPaciente.ReadOnly = true;
             ActualizarConteoRegistros();
             ConfigurarAutocompletado(textBox1);
+            button6.Visible=false;
         }
+        public FormPaciente(FormHistorialMedico formhistorialMedico = null)
+        {
+            InitializeComponent();
+            Mysql.Cpacientes objetoPaciente = new Mysql.Cpacientes();
+            objetoPaciente.mostrarPaciente(dataGridPaciente);
+
+            foreach (DataGridViewColumn column in dataGridPaciente.Columns)
+            {
+                column.DefaultCellStyle.Padding = new Padding(0);
+            }
+            dataGridPaciente.RowTemplate.Height = 60;
+            dataGridPaciente.ReadOnly = true;
+            ActualizarConteoRegistros();
+            ConfigurarAutocompletado(textBox1);
+
+            if (formhistorialMedico != null)
+            {
+                button2.Visible = false;
+                button3.Visible = false;
+                button4.Visible = false;
+                button5.Visible = false;
+                FormBorderStyle = FormBorderStyle.None;
+                ControlBox = false;
+                button6.Visible = true;
+                this.StartPosition = FormStartPosition.CenterScreen;
+                label4.Visible = false;
+                label2.Visible = false;
+                panel3.BackColor = Color.FromArgb(33, 33, 33);
+                panel3.Height = 27;
+                panel3.MouseDown += Panel3_MouseDown;
+                this.Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+                this.BackColor = Color.FromArgb(255, 255, 238);
+                this.formhistorialmedico = formhistorialMedico;
+            }
+        }
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+        int nLeftRect,     // x-coordinate of upper-left corner
+        int nTopRect,      // y-coordinate of upper-left corner
+        int nRightRect,    // x-coordinate of lower-right corner
+        int nBottomRect,   // y-coordinate of lower-right corner
+        int nWidthEllipse, // height of ellipse
+        int nHeightEllipse // width of ellipse
+        );
+        [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        private void Panel3_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
         public void listas()
         {
             comboBox1.Items.Add("Ninguno");
@@ -191,6 +255,39 @@ namespace ConsultasMedicas.Forms
             catch (Exception ex)
             {
                 MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button6_MouseHover(object sender, EventArgs e)
+        {
+            button6.BackColor = Color.Red;
+        }
+
+        private void button6_MouseLeave(object sender, EventArgs e)
+        {
+            button6.BackColor = Color.FromArgb(33, 33, 33);
+        }
+
+        private void dataGridPaciente_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridPaciente.Rows.Count)
+            {
+                if (formhistorialmedico != null)
+                {
+                    // Obtener el código seleccionado
+                    string codigoSeleccionado = dataGridPaciente.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+
+                    // Pasar el código seleccionado a FormHistorialMedico
+                    formhistorialmedico.CodigoPaciente = codigoSeleccionado;
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
         }
     }

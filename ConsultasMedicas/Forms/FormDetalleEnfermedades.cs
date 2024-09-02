@@ -12,6 +12,7 @@ namespace ConsultasMedicas.Forms
         private FormTratamiento formTratamiento;
         private FormVerTratamientos formVerTratamientos;
         private FormEnfermedades formEnfermedades;
+        private FormHistorialMedico formHistorialMedico;
 
         public FormDetalleEnfermedades(FormTratamiento formTratamiento = null)
         {
@@ -37,6 +38,18 @@ namespace ConsultasMedicas.Forms
             this.Resize += FormDetalleEnfermedades_Resize;
             ConfigurarAutocompletado(textBox1);
 
+        }
+        public FormDetalleEnfermedades(FormHistorialMedico formHistorialMedico = null)
+        {
+            InitializeComponent();
+            // Establece la región redondeada inicial
+            this.formHistorialMedico = formHistorialMedico;
+            ApplyRoundRectangleRegion();
+            // Carga los datos en el DataGridView
+            LoadData();
+            // Configura el evento de redimensionamiento
+            this.Resize += FormDetalleEnfermedades_Resize;
+            ConfigurarAutocompletado(textBox1);
         }
 
         public FormDetalleEnfermedades(FormEnfermedades formEnfermedades)
@@ -301,10 +314,28 @@ namespace ConsultasMedicas.Forms
                 if (formVerTratamientos != null)
                 {
                     // Obtener el código seleccionado
+               //     string codigoSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells["ID"].Value.ToString(); // Columna 0: Código
+                    string nombreSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells["Nombre"].Value.ToString(); // Columna 1: Nombre
+
+                    // Pasar los valores a FormHistorialMedico
+                   // formHistorialMedico.CodigoEnfermedad = codigoSeleccionado;
+                    formHistorialMedico.NombreEnfermedad = nombreSeleccionado;
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+            }
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridDetalleEnfermedad.Rows.Count)
+            {
+                // Verificar si FormDetalleEnfermedades fue abierto desde FormTratamiento
+                if (formHistorialMedico != null)
+                {
+                    // Obtener el código seleccionado
                     string codigoSeleccionado = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    string codigoenfermedad = dataGridDetalleEnfermedad.Rows[e.RowIndex].Cells[0].Value.ToString();
 
                     // Pasar el código seleccionado a FormTratamiento
-                    formVerTratamientos.nombreEnfermedad = codigoSeleccionado;
+                    formHistorialMedico.NombreEnfermedad = codigoSeleccionado;
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -375,6 +406,11 @@ namespace ConsultasMedicas.Forms
             {
                 MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

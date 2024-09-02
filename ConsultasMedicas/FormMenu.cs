@@ -151,6 +151,17 @@ namespace ConsultasMedicas
                 tabPage4.Controls.Add(formulario4);
                 formulario4.Show();
             }
+            if (materialTabControl1.SelectedTab == tabPage5)
+            {
+                // Crear instancia del formulario que deseas mostrar
+                Forms.FormHistorialMedico formulario5 = new Forms.FormHistorialMedico();
+                formulario5.TopLevel = false;
+                formulario5.FormBorderStyle = FormBorderStyle.None;
+                formulario5.Dock = DockStyle.Fill;
+                tabPage5.Controls.Clear(); // Limpiar cualquier control existente
+                tabPage5.Controls.Add(formulario5);
+                formulario5.Show();
+            }
         }
         //cambiar de forms con los picturebox
 

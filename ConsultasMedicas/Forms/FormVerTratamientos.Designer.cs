@@ -97,6 +97,7 @@
             this.dataGridTratamiento.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridTratamiento.Size = new System.Drawing.Size(822, 327);
             this.dataGridTratamiento.TabIndex = 105;
+            this.dataGridTratamiento.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridTratamiento_CellClick);
             // 
             // label1
             // 

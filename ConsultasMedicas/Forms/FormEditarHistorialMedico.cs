@@ -89,7 +89,6 @@ namespace ConsultasMedicas.Forms
 
                 if (historialMedico != null)
                 {
-                    // Asignar valores a los controles del formulario con los datos obtenidos
                     textBox1.Text = historialMedico["id_historial"].ToString();
                     textBox2.Text = historialMedico["pac_nombre"].ToString();
                     dateTimePicker1.Value = Convert.ToDateTime(historialMedico["fecha_consulta"]);
@@ -111,6 +110,7 @@ namespace ConsultasMedicas.Forms
         {
             Mysql.Chistorialmedico objetoHistorialMedico = new Mysql.Chistorialmedico();
             objetoHistorialMedico.modificarHistorialMedico(textBox1, textBox2, dateTimePicker1, textBox3, richTextBox1, richTextBox2);
+            OnDataUpdated?.Invoke();
         }
         private void button3_Click(object sender, EventArgs e)
         {

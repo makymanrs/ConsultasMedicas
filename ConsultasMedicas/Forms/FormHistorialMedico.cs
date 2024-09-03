@@ -177,11 +177,13 @@ namespace ConsultasMedicas.Forms
                 // Crear el formulario de edición con los datos obtenidos
                 FormEditarHistorialMedico formEditarHistorial = new FormEditarHistorialMedico(idHistorial, nombrePaciente, fechaConsulta, nombreEnfermedad, diagnostico, tratamiento);
 
+                // Suscribirse al evento OnDataUpdated
                 formEditarHistorial.OnDataUpdated += () =>
                 {
                     // Actualiza los datos después de editar
                     LoadData();
                 };
+
                 formEditarHistorial.ShowDialog();
             }
             else
@@ -191,6 +193,15 @@ namespace ConsultasMedicas.Forms
 
             // Configurar autocompletado después de editar
             ConfigurarAutocompletado(textBox1);
+            
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Mysql.Chistorialmedico objetoHistorialmedico = new Mysql.Chistorialmedico();
+            objetoHistorialmedico.eliminarHistorialMedico(dataGridHistorialMedico);
+            objetoHistorialmedico.mostrarHistorialMedico(dataGridHistorialMedico);
+           // ActualizarConteoRegistros();
         }
     }
 }

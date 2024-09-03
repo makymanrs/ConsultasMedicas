@@ -292,19 +292,63 @@ namespace ConsultasMedicas.Mysql
                 }
             }
         }
+        public void eliminarHistorialMedico(DataGridView dataGridHistorial)
+        {
+            // Verificar si hay una fila seleccionada
+            if (dataGridHistorial.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Por favor, seleccione un historial médico para eliminar.");
+                return;
+            }
 
+            MySqlConnection conexion = null;
+            try
+            {
+                Conexion objetoConexion = new Conexion();
+                conexion = objetoConexion.establecerConexion();
 
+                // Obtener el ID del historial médico de la fila seleccionada
+                int idHistorial = Convert.ToInt32(dataGridHistorial.SelectedRows[0].Cells["ID Historial"].Value);
 
+                // Iniciar una transacción para asegurar la consistencia de los datos
+                MySqlTransaction transaccion = conexion.BeginTransaction();
 
+                try
+                {
+                    // Eliminar el historial médico usando el ID del historial
+                    string queryHistorial = "DELETE FROM HistorialMedico WHERE id_historial = @idHistorial";
+                    MySqlCommand commandHistorial = new MySqlCommand(queryHistorial, conexion, transaccion);
+                    commandHistorial.Parameters.AddWithValue("@idHistorial", idHistorial);
+                    int rowsAffected = commandHistorial.ExecuteNonQuery();
 
-
-
-
-
-
-
-
-
-
+                    if (rowsAffected > 0)
+                    {
+                        transaccion.Commit(); // Confirmar la transacción si todo fue exitoso
+                        MessageBox.Show("Se eliminó el historial médico.");
+                    }
+                    else
+                    {
+                        transaccion.Rollback(); // Revertir la transacción si no se encontró ningún historial médico
+                        MessageBox.Show("No se encontró ningún historial médico con ese ID.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaccion.Rollback(); // Revertir la transacción si ocurre un error
+                    MessageBox.Show("Error al eliminar el historial médico. Error: " + ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo conectar a la base de datos. Error: " + ex.Message);
+            }
+            finally
+            {
+                if (conexion != null)
+                {
+                    conexion.Close();
+                }
+            }
+        }
     }
 }

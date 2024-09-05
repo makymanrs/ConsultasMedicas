@@ -92,6 +92,8 @@ namespace ConsultasMedicas.Forms
         {
             Mysql.Chistorialmedico objetoHistorial = new Mysql.Chistorialmedico();
             objetoHistorial.guardarHistorialMedico(textBox1,textBox2 ,textBox3, dateTimePicker1, richTextBox1, richTextBox2);
+            objetoHistorial.mostrarHistorialMedico(dataGridHistorialMedico);
+
         }
 
         private void FormHistorialMedico_Load(object sender, EventArgs e)
@@ -142,10 +144,10 @@ namespace ConsultasMedicas.Forms
         {
             try
             {
-                Mysql.Cpacientes objetoPacientes = new Mysql.Cpacientes();
+                Mysql.Chistorialmedico objetohistorial = new Mysql.Chistorialmedico();
 
                 // Obtener los nombres de enfermedades
-                List<string> nombrespacientes = objetoPacientes.ObtenerNombrePacientes();
+                List<string> nombrespacientes = objetohistorial.ObtenerNombrePacientes();
 
                 // Crear la colección para el autocompletado
                 AutoCompleteStringCollection autoCompleteCollection = new AutoCompleteStringCollection();

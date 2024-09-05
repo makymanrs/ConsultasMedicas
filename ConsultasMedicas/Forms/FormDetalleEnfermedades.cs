@@ -338,8 +338,8 @@ namespace ConsultasMedicas.Forms
                 {
                     string nombreSeleccionado = row.Cells["Nombre"].Value.ToString();
 
-                    // Pasar los valores a FormHistorialMedico
-                    formHistorialMedico.NombreEnfermedad = nombreSeleccionado;
+                    // Asegúrate de que el nombreEnfermedades se está asignando correctamente
+                    formVerTratamientos.nombreEnfermedades = nombreSeleccionado;
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -430,11 +430,6 @@ namespace ConsultasMedicas.Forms
             {
                 MessageBox.Show("Error al configurar autocompletado: " + ex.Message);
             }
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

@@ -144,7 +144,7 @@ namespace ConsultasMedicas.Mysql
 
                 // Construir la consulta base
                 string query = "SELECT id_historial as 'ID Historial', " +
-                               "pac_nombre as 'Nombre Completo', " +
+                               "pac_nombre as 'Nombre del Paciente', " +
                                "fecha_consulta as 'Fecha de Consulta', " +
                                "enfermedad_nombre as 'Nombre de la Enfermedad', " +
                                "diagnostico as 'Diagnóstico', " +
@@ -349,6 +349,30 @@ namespace ConsultasMedicas.Mysql
                     conexion.Close();
                 }
             }
+        }
+        public List<string> ObtenerNombrePacientes()
+        {
+            List<string> nombresPacientes = new List<string>();
+            using (MySqlConnection conexion = new Conexion().establecerConexion())
+            {
+                try
+                {
+                    // Consulta SQL para obtener los nombres de los pacientes de la tabla HistorialMedico
+                    string query = "SELECT DISTINCT pac_nombre FROM HistorialMedico";
+                    MySqlCommand command = new MySqlCommand(query, conexion);
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        // Agregar el nombre del paciente a la lista
+                        nombresPacientes.Add(reader["pac_nombre"].ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al obtener nombres de pacientes: " + ex.Message);
+                }
+            }
+            return nombresPacientes;
         }
     }
 }

@@ -98,7 +98,7 @@ namespace ConsultasMedicas.Forms
             dataGridTratamiento.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
 
-        public string nombreEnfermedad
+        public string nombreEnfermedades
         {
             set { textBox1.Text = value; }
         }

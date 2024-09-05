@@ -54,6 +54,7 @@ namespace ConsultasMedicas.Forms
             FormInsertarEnfermedad formInsertar = new FormInsertarEnfermedad();
             // formInsertar.RegistroGuardado += FormInsertar_RegistroGuardado; // Suscríbete al evento
             formInsertar.ShowDialog(); // Mostrar el formulario de inserción
+            ConfigurarAutocompletado(textBox1);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -64,10 +65,11 @@ namespace ConsultasMedicas.Forms
             richTextBox2.Text = "";
             textBox1.Text = "";
             ActualizarConteoRegistros();
+            ConfigurarAutocompletado(textBox1);
         }
 
-      
-  
+
+
         private void button6_Click(object sender, EventArgs e)
         {
             FormDetalleEnfermedades mostrarForm = new FormDetalleEnfermedades();
